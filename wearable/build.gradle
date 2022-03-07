@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.wearosapp"
-        minSdk 30
+        minSdk 25
         targetSdk 32
         versionCode 1
         versionName "1.0"

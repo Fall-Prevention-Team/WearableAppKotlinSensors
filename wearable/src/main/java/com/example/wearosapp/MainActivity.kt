@@ -25,6 +25,7 @@ class MainActivity : Activity(), SensorEventListener {
         mySensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         myGyroScope = mySensorManager!!.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
         myAccelerometer = mySensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+
     }
 
     override fun onResume() {
@@ -44,10 +45,15 @@ class MainActivity : Activity(), SensorEventListener {
         val gyrox = findViewById<TextView>(R.id.gyro_val_x)
         val gyroy = findViewById<TextView>(R.id.gyro_val_y)
         val gyroz = findViewById<TextView>(R.id.gyro_val_z)
+        val alpha = 0.8f
+        val linearAcceleration = ArrayList<Float>()
+        val gravity = ArrayList<Float>()
         if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER)) {
+
             accelx.text = p0.values[0].toString()
             accely.text = p0.values[1].toString()
             accelz.text = p0.values[2].toString()
+
         }else if((p0 != null) && (p0.sensor.type == Sensor.TYPE_GYROSCOPE)){
             gyrox.text = p0.values[0].toString()
             gyroy.text = p0.values[1].toString()

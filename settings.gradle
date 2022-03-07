@@ -13,4 +13,5 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "WearOSApp"
-include ':app'
+include ':wearable'
+include ':handheld'

@@ -38,19 +38,20 @@ class MainActivity : Activity(), SensorEventListener {
         mySensorManager!!.unregisterListener(this)
     }
     override fun onSensorChanged(p0: SensorEvent?) {
-        val accel_x = findViewById<TextView>(R.id.accel_val_x)
-        val accel_y = findViewById<TextView>(R.id.accel_val_y)
-        val accel_z = findViewById<TextView>(R.id.accel_val_z)
-        val gyro_x = findViewById<TextView>(R.id.gyro_val_x)
-        val gyro_y = findViewById<TextView>(R.id.gyro_val_y)
-        val gyro_z = findViewById<TextView>(R.id.gyro_val_z)
-        if (p0 != null) {
-            accel_x.text = p0.values[0].toString()
-            accel_y.text = p0.values[1].toString()
-            accel_z.text = p0.values[2].toString()
-            gyro_x.text = p0.values[0].toString()
-            gyro_y.text = p0.values[1].toString()
-            gyro_z.text = p0.values[2].toString()
+        val accelx = findViewById<TextView>(R.id.accel_val_x)
+        val accely = findViewById<TextView>(R.id.accel_val_y)
+        val accelz = findViewById<TextView>(R.id.accel_val_z)
+        val gyrox = findViewById<TextView>(R.id.gyro_val_x)
+        val gyroy = findViewById<TextView>(R.id.gyro_val_y)
+        val gyroz = findViewById<TextView>(R.id.gyro_val_z)
+        if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER)) {
+            accelx.text = p0.values[0].toString()
+            accely.text = p0.values[1].toString()
+            accelz.text = p0.values[2].toString()
+        }else if((p0 != null) && (p0.sensor.type == Sensor.TYPE_GYROSCOPE)){
+            gyrox.text = p0.values[0].toString()
+            gyroy.text = p0.values[1].toString()
+            gyroz.text = p0.values[2].toString()
         }
     }
 

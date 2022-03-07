@@ -49,7 +49,7 @@ class MainActivity : Activity(), SensorEventListener {
         val linearAcceleration = ArrayList<Float>()
         val gravity = ArrayList<Float>()
         if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER)) {
-
+            gravity
             accelx.text = p0.values[0].toString()
             accely.text = p0.values[1].toString()
             accelz.text = p0.values[2].toString()

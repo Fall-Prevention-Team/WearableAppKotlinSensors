@@ -1,7 +1,10 @@
 package com.example.wearosapp
 
 import android.app.Activity
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -11,20 +14,18 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.widget.TextView
-import android.widget.Toast
-import androidx.annotation.MainThread
-import androidx.annotation.NonNull
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.wearosapp.databinding.ActivityMainBinding
 
-
+var messageOutCounter : Int ?= null
 class MainActivity : Activity(), SensorEventListener {
     var myAccelerometer : Sensor ?= null
     var myGyroScope : Sensor ?= null
     var mySensorManager : SensorManager ?= null
     var mainHandler : Handler ?= null
-    var messageInCounter : Int ?= null
-    var messageOutCounter : Int ?= null
+
     private lateinit var binding: ActivityMainBinding
+    var intentFilter : IntentFilter ?= null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,11 +36,28 @@ class MainActivity : Activity(), SensorEventListener {
         mySensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         myGyroScope = mySensorManager!!.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
         myAccelerometer = mySensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-        /*mainHandler = Handler(Looper.getMainLooper()).handleMessage()
 
-         */
+        val myHandler = Handler(Looper.getMainLooper()) { msg ->
+            val stuff = msg.data
+            messageText(stuff.getString("messageText"))
+            true
+        }
+        val messageFilter = IntentFilter(Intent.ACTION_SEND)
+        val messageReceiver = Receiver()
+        LocalBroadcastManager.getInstance(this).registerReceiver(messageReceiver, messageFilter)
     }
+    class Receiver(textView: TextView, messageInCounter : Int) : BroadcastReceiver(){
+        override fun onReceive(p0: Context?, p1: Intent?) {
+            val message = "I just Received a message" + (messageInCounter)
 
+        }
+
+
+    }
+    fun messageText(newInfo: String?) {
+        if (newInfo!!.compareTo("") != 0)
+            textView!!.append("\n" + newInfo)
+    }
 
     override fun onResume() {
         super.onResume()
@@ -75,15 +93,3 @@ class MainActivity : Activity(), SensorEventListener {
         return
     }
 }
-/*
-private class IncomingHandler(private val context: Context, looper: Looper) : Handler(looper) {
-    override fun handleMessage(@NonNull msg: Message) {
-        super.handleMessage(msg)
-        val bundle = msg.data
-        val displayMessage = bundle.getString("MSG_KEY")
-        post { Toast.makeText(context, displayMessage, Toast.LENGTH_LONG).show() }
-        post {  }
-    }
-}
-
- */

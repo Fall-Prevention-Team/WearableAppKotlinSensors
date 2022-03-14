@@ -1,13 +1,20 @@
 package com.example.handheld
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothServerSocket
 import android.bluetooth.BluetoothSocket
-import androidx.appcompat.app.AppCompatActivity
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import androidx.core.app.ActivityCompat
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
+import java.util.*
 
 private const val TAG = "MY_APP_DEBUG_TAG"
 
@@ -16,20 +23,62 @@ private const val TAG = "MY_APP_DEBUG_TAG"
 const val MESSAGE_READ: Int = 0
 const val MESSAGE_WRITE: Int = 1
 const val MESSAGE_TOAST: Int = 2
+val MY_UUID = UUID.fromString("8989063a-c9af-463a-b3f1-f21d9b2b827b")
+
 // ... (Add other message types here as needed.)
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+        BluetoothSocket socket = AcceptThread().socket;
+        MyBluetoothService().ConnectedThread().write()
+    }
+    var bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+
+    override fun onResume() {
+        super.onResume()
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.BLUETOOTH_CONNECT
+            ) != PackageManager.PERMISSION_GRANTED) {
+            return
+        }
     }
 
-    class MyBluetoothService(
+    @SuppressLint("MissingPermission")
+    inner class AcceptThread : Thread() {
+        private val mmServerSocket: BluetoothServerSocket? by lazy(LazyThreadSafetyMode.NONE) {
+            bluetoothAdapter?.listenUsingInsecureRfcommWithServiceRecord("wearosapp", MY_UUID)
+        }
+
+        override fun run() {
+            // Keep listening until exception occurs or a socket is returned.
+            var shouldLoop = true
+            while (shouldLoop) {
+                val socket: BluetoothSocket? = try {
+                    mmServerSocket?.accept()
+                } catch (e: IOException) {
+                    Log.e(TAG, "Socket's accept() method failed", e)
+                    shouldLoop = false
+                    null
+                }
+                socket?.also {
+                    manageMyConnectedSocket(it)
+                    mmServerSocket?.close()
+                    shouldLoop = false
+                }
+            }
+        }
+
+    inner class MyBluetoothService(
         // handler that gets info from Bluetooth service
         private val handler: Handler
     ) {
 
-        private inner class ConnectedThread(private val mmSocket: BluetoothSocket) : Thread() {
+        inner class ConnectedThread(private val mmSocket: BluetoothSocket) : Thread() {
 
             private val mmInStream: InputStream = mmSocket.inputStream
             private val mmOutStream: OutputStream = mmSocket.outputStream

@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.widget.TextView
 import com.example.wearosapp.databinding.ActivityMainBinding
 import java.io.File
-import java.sql.Timestamp
 import java.util.*
 import kotlin.time.Duration.Companion.seconds
 

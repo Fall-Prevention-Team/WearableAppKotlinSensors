@@ -112,9 +112,7 @@ class MainActivity : Activity(), SensorEventListener {
                 gyroy.text = p0.values[1].toString()
                 gyroz.text = p0.values[2].toString()
                 /*fileWriter.append(p0.values.toString(), 0, 2)*/
-
             }
-
         }
     }
 

@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothServerSocket
 import android.bluetooth.BluetoothSocket
 import android.content.pm.PackageManager
@@ -28,33 +29,25 @@ val MY_UUID = UUID.fromString("8989063a-c9af-463a-b3f1-f21d9b2b827b")
 // ... (Add other message types here as needed.)
 
 class MainActivity : Activity() {
+    var mmServerSocket: BluetoothServerSocket ?= null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
-        BluetoothSocket socket = AcceptThread().socket;
-        MyBluetoothService().ConnectedThread().write()
+        var bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            return
+        }
+        mmServerSocket = bluetoothAdapter.listenUsingInsecureRfcommWithServiceRecord("weaosapp", MY_UUID)
     }
-    var bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
 
     override fun onResume() {
         super.onResume()
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.BLUETOOTH_CONNECT
-            ) != PackageManager.PERMISSION_GRANTED) {
-            return
-        }
+
     }
-
-    @SuppressLint("MissingPermission")
     inner class AcceptThread : Thread() {
-        private val mmServerSocket: BluetoothServerSocket? by lazy(LazyThreadSafetyMode.NONE) {
-            bluetoothAdapter?.listenUsingInsecureRfcommWithServiceRecord("wearosapp", MY_UUID)
-        }
-
         override fun run() {
+
             // Keep listening until exception occurs or a socket is returned.
             var shouldLoop = true
             while (shouldLoop) {
@@ -73,11 +66,12 @@ class MainActivity : Activity() {
             }
         }
 
-    inner class MyBluetoothService(
-        // handler that gets info from Bluetooth service
-        private val handler: Handler
-    ) {
+        private fun manageMyConnectedSocket(it: BluetoothSocket) {
 
+        }
+
+        private inner class MyBluetoothService(private val handler: Handler) {
+            // handler that gets info from Bluetooth service
         inner class ConnectedThread(private val mmSocket: BluetoothSocket) : Thread() {
 
             private val mmInStream: InputStream = mmSocket.inputStream
@@ -138,4 +132,5 @@ class MainActivity : Activity() {
             }
         }
     }
+}
 }

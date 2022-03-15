@@ -144,7 +144,7 @@ class BluetoothConnectionService(pContext: Context) {
         }
     }
     //Starts Server side Thread
-    private fun startService() {
+    fun startService() {
         Log.d(TAG, "start: ")
         if (connectThread == null){
             connectThread?.cancel()
@@ -223,7 +223,7 @@ class BluetoothConnectionService(pContext: Context) {
         connectThread?.start()
     }
     //Writes back to client from server
-    private fun write(pOutput: ByteArray){
+    fun write(pOutput: ByteArray){
         var r : ConnectedThread ?= null
         Log.d(TAG, "write: Write called.")
         connectedThread?.write(pOutput)

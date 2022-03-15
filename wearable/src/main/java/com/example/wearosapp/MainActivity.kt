@@ -55,31 +55,12 @@ class MainActivity : Activity(), SensorEventListener {
 
     override fun onResume() {
         super.onResume()
-        val myHandler: Handler = Handler(Looper.getMainLooper())
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.BLUETOOTH_CONNECT
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
-        val device = bluetoothAdapter.bondedDevices.firstOrNull()
         /*file = File.createTempFile("SensorData", ".txt", null)*/
         /*file!!.setWritable(true)*/
         /*val time = Date()
         startTime = time.time.seconds.inWholeSeconds*/
-        val socket = device!!.createInsecureRfcommSocketToServiceRecord(uuid)
-        val stream = MyBluetoothService(myHandler)
         mySensorManager!!.registerListener(this, myAccelerometer, SensorManager.SENSOR_DELAY_UI)
         mySensorManager!!.registerListener(this, myGyroScope, SensorManager.SENSOR_DELAY_UI)
-        val byteArrayPackage = ByteArray(1024)
-        if (SensorData.size == 60){
-            for (i in 1..60){
-                byteArrayPackage[i] = SensorData[i].toByte()
-            }
-            stream.ConnectedThread(socket).write(byteArrayPackage)
-        }
-
     }
 
 

@@ -24,12 +24,18 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        findViewById<Button>(R.id.btnONOFF).setOnClickListener(object : View.OnClickListener {
+        btService?.startService()
+
+        findViewById<Button>(R.id.Send).setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
-                /*enableDisableBT();*/
+                sendData();
             }
 
         })
+
+    }
+
+    private fun sendData() {
 
     }
 

@@ -24,6 +24,7 @@ import androidx.core.app.ActivityCompat
 import com.example.wearosapp.databinding.ActivityMainBinding
 import java.io.File
 import java.io.*
+import java.nio.ByteBuffer
 import java.sql.Timestamp
 import java.util.*
 import kotlin.collections.ArrayList
@@ -40,6 +41,7 @@ class MainActivity : Activity(), SensorEventListener {
     var SensorData = ArrayList<String>()
     var uuid: UUID = UUID.fromString("8989063a-c9af-463a-b3f1-f21d9b2b827b")
     var btCntService : BluetoothConnectionService ?= null
+    var bytes : ByteArray = ByteArray(1024)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,6 +87,10 @@ class MainActivity : Activity(), SensorEventListener {
                 accely.text = p0.values[1].toString()
                 accelz.text = p0.values[2].toString()
                 SensorData.add(p0.values.toString())
+                for (i in 0..bytes.size){
+                    bytes[i] = SensorData[i].toByte()
+                }
+                btCntService?.write(bytes)
         /*        fileWriter.append(p0.values.toString(), 0, 2)*/
 
             }else if((p0 != null) && (p0.sensor.type == Sensor.TYPE_GYROSCOPE)){

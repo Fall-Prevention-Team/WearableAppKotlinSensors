@@ -1,136 +1,60 @@
 package com.example.handheld
 
-import android.Manifest
-import android.annotation.SuppressLint
+
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
-import android.bluetooth.BluetoothServerSocket
-import android.bluetooth.BluetoothSocket
-import android.content.pm.PackageManager
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
-import androidx.core.app.ActivityCompat
-import java.io.IOException
-import java.io.InputStream
-import java.io.OutputStream
+import android.view.View
+import android.widget.Button
 import java.util.*
 
-private const val TAG = "MY_APP_DEBUG_TAG"
+private const val TAG = "APP_MAIN_ACTIVITY"
 
-// Defines several constants used when transmitting messages between the
-// service and the UI.
-const val MESSAGE_READ: Int = 0
-const val MESSAGE_WRITE: Int = 1
-const val MESSAGE_TOAST: Int = 2
+
 val MY_UUID = UUID.fromString("8989063a-c9af-463a-b3f1-f21d9b2b827b")
-
+private var btService : BluetoothConnectionService ?= null
 // ... (Add other message types here as needed.)
 
 class MainActivity : Activity() {
-    var mmServerSocket: BluetoothServerSocket ?= null
 
+    var BTadapter : BluetoothAdapter ?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-            return
-        }
-        mmServerSocket = bluetoothAdapter.listenUsingInsecureRfcommWithServiceRecord("weaosapp", MY_UUID)
+        findViewById<Button>(R.id.btnONOFF).setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View) {
+                /*enableDisableBT();*/
+            }
+
+        })
+
     }
+
+    /*private fun enableDisableBT() {
+        if (BTadapter == null){
+            Log.d(TAG, "enableDisableBluetooth: Adapter is null.")
+        }
+        if (BTadapter?.isEnabled == false){
+            val enableIntent:Intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+            startActivity(enableIntent)
+            val IntentFilter BT
+        }
+        if (){
+
+        }
+    }
+*/
 
     override fun onResume() {
         super.onResume()
 
     }
-    inner class AcceptThread : Thread() {
-        override fun run() {
 
-            // Keep listening until exception occurs or a socket is returned.
-            var shouldLoop = true
-            while (shouldLoop) {
-                val socket: BluetoothSocket? = try {
-                    mmServerSocket?.accept()
-                } catch (e: IOException) {
-                    Log.e(TAG, "Socket's accept() method failed", e)
-                    shouldLoop = false
-                    null
-                }
-                socket?.also {
-                    manageMyConnectedSocket(it)
-                    mmServerSocket?.close()
-                    shouldLoop = false
-                }
-            }
-        }
+    fun btnEnableDisable_Discoverable(view: View) {}
+    fun btnDiscover(view: View) {}
 
-        private fun manageMyConnectedSocket(it: BluetoothSocket) {
 
-        }
-
-        private inner class MyBluetoothService(private val handler: Handler) {
-            // handler that gets info from Bluetooth service
-        inner class ConnectedThread(private val mmSocket: BluetoothSocket) : Thread() {
-
-            private val mmInStream: InputStream = mmSocket.inputStream
-            private val mmOutStream: OutputStream = mmSocket.outputStream
-            private val mmBuffer: ByteArray = ByteArray(1024) // mmBuffer store for the stream
-
-            override fun run() {
-                var numBytes: Int // bytes returned from read()
-
-                // Keep listening to the InputStream until an exception occurs.
-                while (true) {
-                    // Read from the InputStream.
-                    numBytes = try {
-                        mmInStream.read(mmBuffer)
-                    } catch (e: IOException) {
-                        Log.d(TAG, "Input stream was disconnected", e)
-                        break
-                    }
-
-                    // Send the obtained bytes to the UI activity.
-                    val readMsg = handler.obtainMessage(
-                        MESSAGE_READ, numBytes, -1,
-                        mmBuffer)
-                    readMsg.sendToTarget()
-                }
-            }
-
-            // Call this from the main activity to send data to the remote device.
-            fun write(bytes: ByteArray) {
-                try {
-                    mmOutStream.write(bytes)
-                } catch (e: IOException) {
-                    Log.e(TAG, "Error occurred when sending data", e)
-
-                    // Send a failure message back to the activity.
-                    val writeErrorMsg = handler.obtainMessage(MESSAGE_TOAST)
-                    val bundle = Bundle().apply {
-                        putString("toast", "Couldn't send data to the other device")
-                    }
-                    writeErrorMsg.data = bundle
-                    handler.sendMessage(writeErrorMsg)
-                    return
-                }
-
-                // Share the sent message with the UI activity.
-                val writtenMsg = handler.obtainMessage(
-                    MESSAGE_WRITE, -1, -1, mmBuffer)
-                writtenMsg.sendToTarget()
-            }
-
-            // Call this method from the main activity to shut down the connection.
-            fun cancel() {
-                try {
-                    mmSocket.close()
-                } catch (e: IOException) {
-                    Log.e(TAG, "Could not close the connect socket", e)
-                }
-            }
-        }
-    }
-}
 }

@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Handheld</string>
-    <string name="button">Send Message to Wearable</string>
+    <string name="button2">Button2</string>
+    <string name="button3">Button3</string>
+    <string name="button1">ON/OFF</string>
+    <string name="button5">Button5</string>
+    <string name="button6">Button6</string>
+    <string name="insertText">insertText</string>
 </resources>

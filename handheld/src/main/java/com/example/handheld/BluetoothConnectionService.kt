@@ -16,31 +16,38 @@ private const val TAG = "BluetoothConnectionServer"
 private const val APP_NAME = "HandheldApp"
 
 
-private class BluetoothConnectionService(pContext: Context) {
+class BluetoothConnectionService(pContext: Context) {
     private var APP_UUID_INSECURE = UUID.fromString("8989063a-c9af-463a-b3f1-f21d9b2b827b")
-    private var appContext : Context = pContext
-    private var appBluetoothManager : BluetoothManager = pContext.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
-    private var appBluetoothAdapter : BluetoothAdapter = appBluetoothManager.adapter
+    private var appContext : Context ?= null
+    private var appBluetoothAdapter : BluetoothAdapter ?= null
+    private var appBluetoothManager : BluetoothManager ?= null
     private var insecAcceptThread : AcceptThread ?= null
     private var connectedThread : ConnectedThread ?= null
-
     private var connectThread : ConnectThread  ?= null
-
     private var bluetoothDevice : BluetoothDevice ?= null
-
     private var DEVICE_UUID : UUID ?= null
-    //Waits for connection
+
+    //Gets local bluetooth adapter
+    //Initializes context
+    //Starts
+    init {
+        appBluetoothManager = pContext.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+        appBluetoothAdapter = appBluetoothManager?.adapter
+        appContext = pContext
+    }
+
+    //Waits for connection on Server
     private inner class AcceptThread : Thread(){
         private var bluetoothServerSocket : BluetoothServerSocket ?= null
         init {
-            if (ActivityCompat.checkSelfPermission(appContext, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED
+            if (ActivityCompat.checkSelfPermission(appContext!!, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED
             ) {
                 throw Exception("AcceptThread: Connect permission denied")
             }else {
                 try {
                     Log.d(TAG, "AcceptThread: Trying to create bluetooth server socket...")
                     bluetoothServerSocket =
-                        appBluetoothAdapter.listenUsingInsecureRfcommWithServiceRecord(
+                        appBluetoothAdapter?.listenUsingInsecureRfcommWithServiceRecord(
                             APP_NAME,
                             APP_UUID_INSECURE
                         )
@@ -77,7 +84,8 @@ private class BluetoothConnectionService(pContext: Context) {
             }
         }
     }
-    //Waits for incoming connect threads, synchronously with the  AcceptThread
+
+    //Waits for incoming connect threads, synchronously with the  AcceptThread on Server
     private inner class ConnectThread(pDevice: BluetoothDevice, pUuid: UUID) : Thread(){
         private var bluetoothSocket : BluetoothSocket ?= null
         init {
@@ -86,12 +94,14 @@ private class BluetoothConnectionService(pContext: Context) {
             DEVICE_UUID = pUuid
         }
         //Check permission to connect
-        //
+        //Create a Bluetooth socket instance
+        //Connect to socket
+        //Start Connected thread
         override fun run() {
             var tmp : BluetoothSocket ?= null
             Log.i(TAG, "run: ConnectThread start...")
             //Permission check
-            if (ActivityCompat.checkSelfPermission(appContext, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(appContext!!, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                 throw Exception("run: Connect permission denied")
             }else  {
                 //Create Socket
@@ -104,7 +114,7 @@ private class BluetoothConnectionService(pContext: Context) {
                 }
                 bluetoothSocket = tmp
                 //Discovery slows application and is unnecessary for now
-                appBluetoothAdapter.cancelDiscovery()
+                appBluetoothAdapter?.cancelDiscovery()
 
                 //Try connecting to socket
                 try {
@@ -133,6 +143,7 @@ private class BluetoothConnectionService(pContext: Context) {
             }
         }
     }
+    //Starts Server side Thread
     private fun startService() {
         Log.d(TAG, "start: ")
         if (connectThread == null){
@@ -149,6 +160,7 @@ private class BluetoothConnectionService(pContext: Context) {
         connectThread = ConnectThread(pBluetoothDevice, pUuid)
         connectThread?.start()
     }
+    //Connected threads
     private inner class ConnectedThread(pBluetoothSocket: BluetoothSocket) : Thread() {
         private var bluetoothSocket : BluetoothSocket ?= null
         private var inputStream : InputStream ?= null
@@ -183,6 +195,7 @@ private class BluetoothConnectionService(pContext: Context) {
                 }
             }
         }
+        //Writes to server
         fun write(pBytes : ByteArray){
             var text : String = String(pBytes, Charset.defaultCharset())
             Log.d(TAG, "write: Trying to write to output stream...")
@@ -203,11 +216,13 @@ private class BluetoothConnectionService(pContext: Context) {
             }
         }
     }
+    //Starts connected thread on server
     private fun connected(pBluetoothSocket: BluetoothSocket, pBluetoothDevice: BluetoothDevice?) {
         Log.d(TAG, "connected: Starting.")
         connectedThread = ConnectedThread(pBluetoothSocket)
         connectThread?.start()
     }
+    //Writes back to client from server
     private fun write(pOutput: ByteArray){
         var r : ConnectedThread ?= null
         Log.d(TAG, "write: Write called.")

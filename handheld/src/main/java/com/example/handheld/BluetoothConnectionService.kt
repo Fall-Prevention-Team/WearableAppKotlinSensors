@@ -4,9 +4,11 @@ import android.Manifest
 
 import android.bluetooth.*
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.util.Log
 import androidx.core.app.ActivityCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import java.io.InputStream
 import java.io.OutputStream
 import java.nio.charset.Charset
@@ -188,6 +190,9 @@ class BluetoothConnectionService(pContext: Context) {
                     bytes = inputStream!!.read(dataBuffer)
                     val incomingMsg : String = String(dataBuffer, 0,bytes)
                     Log.d(TAG, "Input stream: "+ incomingMsg)
+                    /*val intentMsg : Intent = Intent(incomingMsg)
+                    intentMsg.putExtra("sent package", incomingMsg)
+                    LocalBroadcastManager.getInstance(appContext!!).sendBroadcast(intentMsg)*/
                 }catch (exception : Exception){
                     Log.e(TAG,"run: failed to read input from stream.")
                     exception.printStackTrace()

@@ -21,7 +21,6 @@ import android.os.Looper
 import android.util.Log
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
-import com.example.handheld.BluetoothConnectionService
 import com.example.wearosapp.databinding.ActivityMainBinding
 import java.io.File
 import java.io.*
@@ -40,7 +39,7 @@ class MainActivity : Activity(), SensorEventListener {
     private lateinit var binding : ActivityMainBinding
     var SensorData = ArrayList<String>()
     var uuid: UUID = UUID.fromString("8989063a-c9af-463a-b3f1-f21d9b2b827b")
-    var BTcntService : BluetoothConnectionService?= null
+    var btCntService : BluetoothConnectionService ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +53,7 @@ class MainActivity : Activity(), SensorEventListener {
 
     override fun onResume() {
         super.onResume()
+        btCntService?.startService()
         /*file = File.createTempFile("SensorData", ".txt", null)*/
         /*file!!.setWritable(true)*/
         /*val time = Date()

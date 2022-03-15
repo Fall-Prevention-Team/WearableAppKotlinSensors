@@ -36,7 +36,7 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        btService?.startService()
+        btService = BluetoothConnectionService(applicationContext)
 
         findViewById<Button>(R.id.Send).setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
@@ -68,7 +68,7 @@ class MainActivity : Activity() {
 
     override fun onResume() {
         super.onResume()
-
+        btService?.startService()
     }
 
     fun btnEnableDisable_Discoverable(view: View) {}

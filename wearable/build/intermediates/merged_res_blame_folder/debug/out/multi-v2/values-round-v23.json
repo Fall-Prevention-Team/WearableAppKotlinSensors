@@ -1,0 +1,36 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\krist\\Documents\\Android\\FallWearApp\\wearable\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-round-v23\\values-round-v23.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\krist\\Documents\\Android\\FallWearApp\\wearable\\src\\main\\res\\values-round\\strings.xml",
+                    "from": {
+                        "startLines": "1,4,5,3,2,6,7,8",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "17,159,207,111,65,255,306,357",
+                        "endColumns": "46,46,46,46,44,49,49,49",
+                        "endOffsets": "59,201,249,153,105,300,351,402"
+                    },
+                    "to": {
+                        "startLines": "5,6,7,8,9,10,11,12",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "284,331,378,425,472,517,567,617",
+                        "endColumns": "46,46,46,46,44,49,49,49",
+                        "endOffsets": "326,373,420,467,512,562,612,662"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\krist\\.gradle\\caches\\transforms-3\\2208c84ab26681deb031ca1ddfe88088\\transformed\\wear-1.2.0\\res\\values-round-v23\\values-round-v23.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,118,204",
+                        "endColumns": "62,85,79",
+                        "endOffsets": "113,199,279"
+                    }
+                }
+            ]
+        }
+    ]
+}

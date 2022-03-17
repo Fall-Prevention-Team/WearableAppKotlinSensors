@@ -1,0 +1,107 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.wearosapp"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="25"
+8-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="25" />
+9-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+11-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:5:5-76
+11-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:5:22-73
+12    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+12-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:6:5-73
+12-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:6:22-70
+13    <uses-permission android:name="android.permission.WAKE_LOCK" />
+13-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:7:5-68
+13-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:7:22-65
+14    <uses-permission android:name="android.permission.BLUETOOTH" />
+14-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:8:5-68
+14-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:8:22-65
+15    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+15-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:9:5-74
+15-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:9:22-71
+16    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+16-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:10:5-81
+16-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:10:22-78
+17    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+17-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:11:5-78
+17-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:11:22-76
+18
+19    <uses-feature android:name="android.hardware.type.watch" />
+19-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:12:5-64
+19-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:12:19-61
+20
+21    <application
+21-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:14:5-41:19
+22        android:allowBackup="true"
+22-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:15:9-35
+23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+23-->[androidx.core:core:1.7.0] C:\Users\krist\.gradle\caches\transforms-3\a927d619ce56469f35da2fa2f2cd3b0b\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
+24        android:debuggable="true"
+25        android:extractNativeLibs="false"
+26        android:icon="@mipmap/ic_launcher"
+26-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:16:9-43
+27        android:label="@string/app_name"
+27-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:17:9-41
+28        android:supportsRtl="true"
+28-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:18:9-35
+29        android:theme="@android:style/Theme.DeviceDefault" >
+29-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:19:9-59
+30        <uses-library
+30-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:20:9-22:39
+31            android:name="com.google.android.wearable"
+31-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:21:13-55
+32            android:required="true" />
+32-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:22:13-36
+33
+34        <!--
+35               Set to true if your app is Standalone, that is, it does not require the handheld
+36               app to run.
+37        -->
+38        <meta-data
+38-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:28:9-30:36
+39            android:name="com.google.android.wearable.standalone"
+39-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:29:13-66
+40            android:value="true" />
+40-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:30:13-33
+41
+42        <activity
+42-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:32:9-40:20
+43            android:name="com.example.wearosapp.MainActivity"
+43-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:33:13-41
+44            android:exported="true" >
+44-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:34:13-36
+45            <intent-filter>
+45-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:35:13-39:29
+46                <action android:name="android.intent.action.MAIN" />
+46-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:36:17-69
+46-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:36:25-66
+47
+48                <category android:name="android.intent.category.LAUNCHER" />
+48-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:38:17-77
+48-->C:\Users\krist\Documents\Android\FallWearApp\wearable\src\main\AndroidManifest.xml:38:27-74
+49            </intent-filter>
+50        </activity>
+51        <activity
+51-->[com.google.android.gms:play-services-base:17.5.0] C:\Users\krist\.gradle\caches\transforms-3\1b0f9faac5e29a0754dfae142b63b9d4\transformed\play-services-base-17.5.0\AndroidManifest.xml:23:9-26:75
+52            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+52-->[com.google.android.gms:play-services-base:17.5.0] C:\Users\krist\.gradle\caches\transforms-3\1b0f9faac5e29a0754dfae142b63b9d4\transformed\play-services-base-17.5.0\AndroidManifest.xml:24:13-79
+53            android:exported="false"
+53-->[com.google.android.gms:play-services-base:17.5.0] C:\Users\krist\.gradle\caches\transforms-3\1b0f9faac5e29a0754dfae142b63b9d4\transformed\play-services-base-17.5.0\AndroidManifest.xml:25:13-37
+54            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+54-->[com.google.android.gms:play-services-base:17.5.0] C:\Users\krist\.gradle\caches\transforms-3\1b0f9faac5e29a0754dfae142b63b9d4\transformed\play-services-base-17.5.0\AndroidManifest.xml:26:13-72
+55
+56        <meta-data
+56-->[com.google.android.gms:play-services-basement:17.5.0] C:\Users\krist\.gradle\caches\transforms-3\c74ae823595d9d5b69854019558b3470\transformed\play-services-basement-17.5.0\AndroidManifest.xml:23:9-25:69
+57            android:name="com.google.android.gms.version"
+57-->[com.google.android.gms:play-services-basement:17.5.0] C:\Users\krist\.gradle\caches\transforms-3\c74ae823595d9d5b69854019558b3470\transformed\play-services-basement-17.5.0\AndroidManifest.xml:24:13-58
+58            android:value="@integer/google_play_services_version" />
+58-->[com.google.android.gms:play-services-basement:17.5.0] C:\Users\krist\.gradle\caches\transforms-3\c74ae823595d9d5b69854019558b3470\transformed\play-services-basement-17.5.0\AndroidManifest.xml:25:13-66
+59    </application>
+60
+61</manifest>

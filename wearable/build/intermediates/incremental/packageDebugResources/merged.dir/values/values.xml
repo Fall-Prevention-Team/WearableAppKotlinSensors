@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="box_inset_layout_padding">0dp</dimen>
+    <dimen name="inner_frame_layout_padding">5dp</dimen>
+    <string name="accel_val_x">sensor</string>
+    <string name="accel_val_y">TextView</string>
+    <string name="accel_val_z">TextView</string>
+    <string name="app_name">WearOSApp</string>
+    <string name="button_start">Button</string>
+    <string name="button_stop">Button</string>
+    <string name="gyroscope_val_x">TextView</string>
+    <string name="gyroscope_val_y">TextView</string>
+    <string name="gyroscope_val_z">TextView</string>
+</resources>

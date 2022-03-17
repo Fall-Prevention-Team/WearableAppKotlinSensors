@@ -1,7 +1,6 @@
 package com.example.wearosapp
 
 import android.Manifest
-import android.Manifest.permission.BLUETOOTH_CONNECT
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
@@ -22,8 +21,6 @@ import android.os.Looper
 import android.util.Log
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.PermissionChecker.PERMISSION_DENIED
 import com.example.wearosapp.databinding.ActivityMainBinding
 import java.io.File
 import java.io.*
@@ -48,18 +45,12 @@ class MainActivity : Activity(), SensorEventListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        if (ContextCompat.checkSelfPermission(applicationContext, BLUETOOTH_CONNECT)
-//            == PERMISSION_DENIED) {
-//            ActivityCompat.requestPermissions(
-//                this, arrayOf(BLUETOOTH_CONNECT), 1
-//            )
-//        }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main)
-        btCntService = BluetoothConnectionService(applicationContext)
         mySensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         myGyroScope = mySensorManager!!.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
         myAccelerometer = mySensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+
     }
 
     override fun onResume() {

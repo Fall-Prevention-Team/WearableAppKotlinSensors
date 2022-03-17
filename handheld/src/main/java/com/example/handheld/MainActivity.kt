@@ -1,7 +1,6 @@
 package com.example.handheld
 
 
-import android.Manifest
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -12,9 +11,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.PermissionChecker
 import org.w3c.dom.Text
 import java.util.*
 
@@ -39,12 +35,6 @@ class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(ContextCompat.checkSelfPermission(applicationContext,
-                Manifest.permission.BLUETOOTH_CONNECT
-            ) == PermissionChecker.PERMISSION_DENIED
-        ){
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.BLUETOOTH_CONNECT), 1)
-        }
         setContentView(R.layout.activity_main)
         btService = BluetoothConnectionService(applicationContext)
 

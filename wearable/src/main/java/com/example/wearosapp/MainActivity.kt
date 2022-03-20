@@ -1,31 +1,15 @@
 package com.example.wearosapp
 
-import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
-import android.bluetooth.BluetoothServerSocket
-import android.bluetooth.BluetoothSocket
-import android.content.ContentValues.TAG
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import android.widget.TextView
-import androidx.core.app.ActivityCompat
 import com.example.wearosapp.databinding.ActivityMainBinding
 import java.io.File
-import java.io.*
-import java.nio.ByteBuffer
-import java.sql.Timestamp
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.time.Duration.Companion.seconds
@@ -39,8 +23,6 @@ class MainActivity : Activity(), SensorEventListener {
     var startTime : Long ?= null
     private lateinit var binding : ActivityMainBinding
     var SensorData = ArrayList<String>()
-    var uuid: UUID = UUID.fromString("8989063a-c9af-463a-b3f1-f21d9b2b827b")
-    var btCntService : BluetoothConnectionService ?= null
     var bytes : ByteArray = ByteArray(1024)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,11 +37,6 @@ class MainActivity : Activity(), SensorEventListener {
 
     override fun onResume() {
         super.onResume()
-        btCntService?.startService()
-        /*file = File.createTempFile("SensorData", ".txt", null)*/
-        /*file!!.setWritable(true)*/
-        /*val time = Date()
-        startTime = time.time.seconds.inWholeSeconds*/
         mySensorManager!!.registerListener(this, myAccelerometer, SensorManager.SENSOR_DELAY_UI)
         mySensorManager!!.registerListener(this, myGyroScope, SensorManager.SENSOR_DELAY_UI)
     }
@@ -90,7 +67,7 @@ class MainActivity : Activity(), SensorEventListener {
                 for (i in 0..bytes.size){
                     bytes[i] = SensorData[i].toByte()
                 }
-                btCntService?.write(bytes)
+//                btCntService?.write(bytes)
         /*        fileWriter.append(p0.values.toString(), 0, 2)*/
 
             }else if((p0 != null) && (p0.sensor.type == Sensor.TYPE_GYROSCOPE)){

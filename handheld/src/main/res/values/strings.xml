@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">Handheld</string>
-    <string name="button2">Button2</string>
-    <string name="button3">Button3</string>
     <string name="button1">ON/OFF</string>
-    <string name="button5">Button5</string>
-    <string name="button6">Button6</string>
-    <string name="insertText">insertText</string>
+    <string name="data">data</string>
+    <string name="status">status</string>
+    <string name="connection_established">connection established</string>
+    <string name="init">...</string>
 </resources>

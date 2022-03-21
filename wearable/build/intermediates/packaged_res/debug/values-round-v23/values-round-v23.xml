@@ -8,4 +8,5 @@
     <string name="gyroscope_val_x">gyrox</string>
     <string name="gyroscope_val_y">gyroy</string>
     <string name="gyroscope_val_z">gyroz</string>
+    <string name="mobile_device_is_connected">Mobile device not paired</string>
 </resources>

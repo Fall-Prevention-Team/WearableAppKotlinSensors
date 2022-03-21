@@ -4,13 +4,37 @@
             "outputFile": "C:\\Users\\krist\\Documents\\Android\\FallWearApp\\wearable\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sw210dp-v13\\values-sw210dp-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\krist\\.gradle\\caches\\transforms-3\\2208c84ab26681deb031ca1ddfe88088\\transformed\\wear-1.2.0\\res\\values-sw210dp-v13\\values-sw210dp-v13.xml",
+                    "source": "C:\\Users\\krist\\.gradle\\caches\\transforms-3\\17a83cc963a53c31be4e4b72038e87cb\\transformed\\wear-1.2.0\\res\\values-sw210dp-v13\\values-sw210dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
                         "startOffsets": "55,126,198,265",
                         "endColumns": "70,71,66,54",
                         "endOffsets": "121,193,260,315"
+                    },
+                    "to": {
+                        "startLines": "5,6,7,8",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "239,310,382,449",
+                        "endColumns": "70,71,66,54",
+                        "endOffsets": "305,377,444,499"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\krist\\.gradle\\caches\\transforms-3\\566267f6a19fe847d4c15cd095309c90\\transformed\\wearable-2.9.0\\res\\values-sw210dp-v13\\values.xml",
+                    "from": {
+                        "startLines": "4,5,6",
+                        "startColumns": "0,0,0",
+                        "startOffsets": "215,279,339",
+                        "endColumns": "63,59,47",
+                        "endOffsets": "278,338,386"
+                    },
+                    "to": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,123,187",
+                        "endColumns": "67,63,51",
+                        "endOffsets": "118,182,234"
                     }
                 }
             ]

@@ -4,7 +4,7 @@
             "outputFile": "C:\\Users\\krist\\Documents\\Android\\FallWearApp\\handheld\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-en-rCA\\values-en-rCA.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\krist\\.gradle\\caches\\transforms-3\\7d41cd8a5d82fd57439fdb8fd3dd7719\\transformed\\appcompat-1.4.1\\res\\values-en-rCA\\values-en-rCA.xml",
+                    "source": "C:\\Users\\krist\\.gradle\\caches\\transforms-3\\d2be0a07ac682004ffbddd9c163a1cf7\\transformed\\appcompat-1.4.1\\res\\values-en-rCA\\values-en-rCA.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\krist\\.gradle\\caches\\transforms-3\\a927d619ce56469f35da2fa2f2cd3b0b\\transformed\\core-1.7.0\\res\\values-en-rCA\\values-en-rCA.xml",
+                    "source": "C:\\Users\\krist\\.gradle\\caches\\transforms-3\\adacc4bbdca3c037c01e5031782c646c\\transformed\\core-1.7.0\\res\\values-en-rCA\\values-en-rCA.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

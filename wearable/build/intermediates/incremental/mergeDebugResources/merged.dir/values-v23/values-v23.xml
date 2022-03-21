@@ -48,4 +48,68 @@
         <item name="android:hyphenationFrequency">none</item>
         <item name="android:breakStrategy">high_quality</item>
     </style>
+    <style name="CardText" parent="CardTextBase">
+<item name="android:hyphenationFrequency">normal</item>
+<item name="android:breakStrategy">balanced</item>
+</style>
+    <style name="CardTitle" parent="CardTitleBase">
+<item name="android:hyphenationFrequency">normal</item>
+<item name="android:breakStrategy">balanced</item>
+</style>
+    <style name="CardView" parent="Base.CardView">
+        <item name="cardBackgroundColor">?android:attr/colorBackgroundFloating</item>
+    </style>
+    <style name="ThemeOverlay.Material3.AutoCompleteTextView" parent="Base.ThemeOverlay.Material3.AutoCompleteTextView">
+    <item name="colorControlNormal">@color/m3_textfield_indicator_text_color</item>
+  </style>
+    <style name="ThemeOverlay.Material3.TextInputEditText" parent="Base.ThemeOverlay.Material3.TextInputEditText">
+    <item name="colorControlNormal">@color/m3_textfield_indicator_text_color</item>
+  </style>
+    <style name="WearableActionDrawerItemText">
+<item name="android:layout_gravity">center_vertical</item>
+<item name="android:ellipsize">end</item>
+<item name="android:fontFamily">sans-serif-condensed-light</item>
+<item name="android:maxLines">3</item>
+<item name="android:textColor">?android:attr/textColorPrimary</item>
+<item name="android:textSize">@dimen/action_drawer_item_text_size</item>
+</style>
+    <style name="WearableActionDrawerTitleText" parent="android:TextAppearance.Material.Subhead">
+<item name="android:alpha">0.7</item>
+</style>
+    <style name="WearableWatchFaceSettings" parent="android:Theme.DeviceDefault.Dialog.Alert">
+</style>
+    <style name="Widget.Material3.ActionBar.Solid" parent="Base.Widget.Material3.ActionBar.Solid">
+    <item name="background">@drawable/m3_appbar_background</item>
+    <item name="backgroundStacked">@drawable/m3_appbar_background</item>
+    <item name="backgroundSplit">@drawable/m3_appbar_background</item>
+  </style>
+    <style name="Widget.Material3.ActionMode" parent="Base.Widget.Material3.ActionMode">
+    <item name="background">@drawable/m3_appbar_background</item>
+    <item name="backgroundSplit">@drawable/m3_appbar_background</item>
+  </style>
+    <style name="Widget.Material3.CompoundButton.CheckBox" parent="Base.Widget.Material3.CompoundButton.CheckBox">
+    <item name="android:background">@drawable/m3_selection_control_ripple</item>
+  </style>
+    <style name="Widget.Material3.CompoundButton.RadioButton" parent="Base.Widget.Material3.CompoundButton.RadioButton">
+    <item name="android:background">@drawable/m3_radiobutton_ripple</item>
+  </style>
+    <style name="Widget.Material3.CompoundButton.Switch" parent="Base.Widget.Material3.CompoundButton.Switch">
+    <item name="android:background">@drawable/m3_selection_control_ripple</item>
+  </style>
+    <style name="Widget.Material3.Light.ActionBar.Solid" parent="Base.Widget.Material3.Light.ActionBar.Solid">
+    <item name="background">@drawable/m3_appbar_background</item>
+    <item name="backgroundStacked">@drawable/m3_appbar_background</item>
+    <item name="backgroundSplit">@drawable/m3_appbar_background</item>
+  </style>
+    <style name="Widget.Material3.TabLayout.OnSurface" parent="Base.Widget.Material3.TabLayout.OnSurface">
+    <item name="android:background">@drawable/m3_tabs_transparent_background</item>
+  </style>
+    <style name="Widget.MaterialComponents.PopupMenu.ContextMenu" parent="Base.Widget.MaterialComponents.PopupMenu.ContextMenu">
+    <item name="android:popupBackground">?attr/popupMenuBackground</item>
+    <item name="android:popupElevation">8dp</item>
+  </style>
+    <style name="Widget.MaterialComponents.PopupMenu.ListPopupWindow" parent="Base.Widget.MaterialComponents.PopupMenu.ListPopupWindow">
+    <item name="android:popupBackground">?attr/popupMenuBackground</item>
+    <item name="android:popupElevation">8dp</item>
+  </style>
 </resources>

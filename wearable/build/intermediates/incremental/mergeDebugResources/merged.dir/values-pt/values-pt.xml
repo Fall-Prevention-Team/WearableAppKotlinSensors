@@ -31,8 +31,15 @@
     <string msgid="8809042819843332546" name="confirmation_overlay_a11y_description_phone">"Item aberto no seu smartphone"</string>
     <string msgid="2936753235333429892" name="confirmation_overlay_a11y_description_success">"Pronto"</string>
     <string msgid="4327971892987955014" name="confirmation_overlay_a11y_type_image">"Imagem"</string>
+    <string msgid="3209159573327985035" name="copy">"Copiar"</string>
+    <string msgid="1234962710353108940" name="expand_button_title">"Avançado"</string>
+    <string msgid="478774118347071097" name="not_set">"Não definido"</string>
+    <string msgid="7961817945132860002" name="preference_copied">"\"<ns1:g id="SUMMARY">%1$s</ns1:g>\" copiado para a área de transferência."</string>
     <string msgid="6264217191555673260" name="search_menu_title">"Pesquisar"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="5190123168583152844" name="summary_collapsed_preference_list">"<ns1:g id="CURRENT_ITEMS">%1$s</ns1:g>, <ns1:g id="ADDED_ITEMS">%2$s</ns1:g>"</string>
+    <string msgid="5138405918326871307" name="v7_preference_off">"DESATIVADO"</string>
+    <string msgid="27351710992731591" name="v7_preference_on">"ATIVADO"</string>
     <string msgid="8863821639144537553" name="ws_action_drawer_content_description">"Gaveta de ações"</string>
     <string msgid="777117228299084604" name="ws_navigation_drawer_content_description">"Gaveta de navegação"</string>
 </resources>

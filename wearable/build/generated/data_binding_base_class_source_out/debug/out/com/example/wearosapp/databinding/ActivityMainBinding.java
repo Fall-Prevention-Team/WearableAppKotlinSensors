@@ -5,12 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
+import androidx.wear.widget.BoxInsetLayout;
 import com.example.wearosapp.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -18,7 +19,7 @@ import java.lang.String;
 
 public final class ActivityMainBinding implements ViewBinding {
   @NonNull
-  private final ConstraintLayout rootView;
+  private final BoxInsetLayout rootView;
 
   @NonNull
   public final TextView accelValX;
@@ -30,13 +31,7 @@ public final class ActivityMainBinding implements ViewBinding {
   public final TextView accelValZ;
 
   @NonNull
-  public final ConstraintLayout boxInsetLayout;
-
-  @NonNull
-  public final Button button;
-
-  @NonNull
-  public final Button button2;
+  public final TextView deviceconnectionStatusTv;
 
   @NonNull
   public final TextView gyroValX;
@@ -47,25 +42,36 @@ public final class ActivityMainBinding implements ViewBinding {
   @NonNull
   public final TextView gyroValZ;
 
-  private ActivityMainBinding(@NonNull ConstraintLayout rootView, @NonNull TextView accelValX,
+  @NonNull
+  public final Button sendmessageButton;
+
+  @NonNull
+  public final TextView status;
+
+  @NonNull
+  public final ScrollView statusScrollView;
+
+  private ActivityMainBinding(@NonNull BoxInsetLayout rootView, @NonNull TextView accelValX,
       @NonNull TextView accelValY, @NonNull TextView accelValZ,
-      @NonNull ConstraintLayout boxInsetLayout, @NonNull Button button, @NonNull Button button2,
-      @NonNull TextView gyroValX, @NonNull TextView gyroValY, @NonNull TextView gyroValZ) {
+      @NonNull TextView deviceconnectionStatusTv, @NonNull TextView gyroValX,
+      @NonNull TextView gyroValY, @NonNull TextView gyroValZ, @NonNull Button sendmessageButton,
+      @NonNull TextView status, @NonNull ScrollView statusScrollView) {
     this.rootView = rootView;
     this.accelValX = accelValX;
     this.accelValY = accelValY;
     this.accelValZ = accelValZ;
-    this.boxInsetLayout = boxInsetLayout;
-    this.button = button;
-    this.button2 = button2;
+    this.deviceconnectionStatusTv = deviceconnectionStatusTv;
     this.gyroValX = gyroValX;
     this.gyroValY = gyroValY;
     this.gyroValZ = gyroValZ;
+    this.sendmessageButton = sendmessageButton;
+    this.status = status;
+    this.statusScrollView = statusScrollView;
   }
 
   @Override
   @NonNull
-  public ConstraintLayout getRoot() {
+  public BoxInsetLayout getRoot() {
     return rootView;
   }
 
@@ -108,17 +114,9 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      ConstraintLayout boxInsetLayout = (ConstraintLayout) rootView;
-
-      id = R.id.button;
-      Button button = ViewBindings.findChildViewById(rootView, id);
-      if (button == null) {
-        break missingId;
-      }
-
-      id = R.id.button2;
-      Button button2 = ViewBindings.findChildViewById(rootView, id);
-      if (button2 == null) {
+      id = R.id.deviceconnectionStatusTv;
+      TextView deviceconnectionStatusTv = ViewBindings.findChildViewById(rootView, id);
+      if (deviceconnectionStatusTv == null) {
         break missingId;
       }
 
@@ -140,8 +138,27 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityMainBinding((ConstraintLayout) rootView, accelValX, accelValY, accelValZ,
-          boxInsetLayout, button, button2, gyroValX, gyroValY, gyroValZ);
+      id = R.id.sendmessageButton;
+      Button sendmessageButton = ViewBindings.findChildViewById(rootView, id);
+      if (sendmessageButton == null) {
+        break missingId;
+      }
+
+      id = R.id.status;
+      TextView status = ViewBindings.findChildViewById(rootView, id);
+      if (status == null) {
+        break missingId;
+      }
+
+      id = R.id.statusScrollView;
+      ScrollView statusScrollView = ViewBindings.findChildViewById(rootView, id);
+      if (statusScrollView == null) {
+        break missingId;
+      }
+
+      return new ActivityMainBinding((BoxInsetLayout) rootView, accelValX, accelValY, accelValZ,
+          deviceconnectionStatusTv, gyroValX, gyroValY, gyroValZ, sendmessageButton, status,
+          statusScrollView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

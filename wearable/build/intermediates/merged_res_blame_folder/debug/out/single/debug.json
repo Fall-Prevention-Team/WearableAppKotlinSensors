@@ -8,16 +8,16 @@
         "source": "C:\\Users\\krist\\Documents\\Android\\FallWearApp\\wearable\\src\\main\\res\\mipmap-hdpi\\ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\krist\\Documents\\Android\\FallWearApp\\wearable\\build\\intermediates\\merged_res\\debug\\mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "C:\\Users\\krist\\Documents\\Android\\FallWearApp\\wearable\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.webp"
+        "merged": "C:\\Users\\krist\\Documents\\Android\\FallWearApp\\wearable\\build\\intermediates\\merged_res\\debug\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\krist\\Documents\\Android\\FallWearApp\\wearable\\src\\main\\res\\layout\\activity_main.xml"
     },
     {
         "merged": "C:\\Users\\krist\\Documents\\Android\\FallWearApp\\wearable\\build\\intermediates\\merged_res\\debug\\mipmap-xxxhdpi_ic_launcher.webp.flat",
         "source": "C:\\Users\\krist\\Documents\\Android\\FallWearApp\\wearable\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.webp"
     },
     {
-        "merged": "C:\\Users\\krist\\Documents\\Android\\FallWearApp\\wearable\\build\\intermediates\\merged_res\\debug\\layout_activity_main.xml.flat",
-        "source": "C:\\Users\\krist\\Documents\\Android\\FallWearApp\\wearable\\src\\main\\res\\layout\\activity_main.xml"
+        "merged": "C:\\Users\\krist\\Documents\\Android\\FallWearApp\\wearable\\build\\intermediates\\merged_res\\debug\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\krist\\Documents\\Android\\FallWearApp\\wearable\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.webp"
     },
     {
         "merged": "C:\\Users\\krist\\Documents\\Android\\FallWearApp\\wearable\\build\\intermediates\\merged_res\\debug\\mipmap-mdpi_ic_launcher.webp.flat",

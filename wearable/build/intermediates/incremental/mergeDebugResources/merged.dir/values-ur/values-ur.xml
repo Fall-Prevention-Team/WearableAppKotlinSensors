@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:ns1="http://schemas.android.com/tools" xmlns:ns2="urn:oasis:names:tc:xliff:document:1.2">
+    <plurals name="mtrl_badge_content_description">
+    <item quantity="one">%d نئی اطلاع</item>
+    <item quantity="other">%d نئی اطلاعات</item>
+  </plurals>
+    <plurals name="time_difference_short_days" ns1:ignore="UnusedQuantity,MissingQuantity"><item quantity="one">%d دن</item>
+<item quantity="other">%d دن</item>
+</plurals>
+    <plurals name="time_difference_short_hours" ns1:ignore="UnusedQuantity,MissingQuantity"><item quantity="one">%d گھنٹہ</item>
+<item quantity="other">%d گھنٹہ</item>
+</plurals>
+    <plurals name="time_difference_short_minutes" ns1:ignore="UnusedQuantity,MissingQuantity"><item quantity="one">%d منٹ</item>
+<item quantity="other">%d منٹ</item>
+</plurals>
+    <plurals name="time_difference_words_days" ns1:ignore="UnusedQuantity,MissingQuantity"><item quantity="one">%d دن</item>
+<item quantity="other">%d دن</item>
+</plurals>
+    <plurals name="time_difference_words_hours" ns1:ignore="UnusedQuantity,MissingQuantity"><item quantity="one">%d گھنٹہ</item>
+<item quantity="other">%d گھنٹے</item>
+</plurals>
+    <plurals name="time_difference_words_minutes" ns1:ignore="UnusedQuantity,MissingQuantity"><item quantity="one">%d منٹ</item>
+<item quantity="other">%d منٹ</item>
+</plurals>
+    <string name="a11y_no_data">کوئی ڈیٹا نہیں ہے</string>
+    <string name="a11y_no_permission">ڈیٹا تک رسائی کیلئے کوئی اجازت نہیں</string>
+    <string name="a11y_template_range">%2$f میں سے %1$f</string>
     <string msgid="5976598919945601918" name="abc_action_bar_home_description">"گھر کی طرف نیویگیٹ کریں"</string>
     <string msgid="8388173803310557296" name="abc_action_bar_up_description">"اوپر نیویگیٹ کریں"</string>
     <string msgid="3937310113216875497" name="abc_action_menu_overflow_description">"مزید اختیارات"</string>
@@ -25,22 +50,54 @@
     <string msgid="1486535517437947103" name="abc_searchview_description_submit">"استفسار جمع کرائیں"</string>
     <string msgid="2293578557972875415" name="abc_searchview_description_voice">"صوتی تلاش"</string>
     <string msgid="8875138169939072951" name="abc_shareactionprovider_share_with">"اس کے ساتھ اشتراک کریں"</string>
-    <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"<ns1:g id="APPLICATION_NAME">%s</ns1:g> کے ساتھ اشتراک کریں"</string>
+    <string msgid="9055268688411532828" name="abc_shareactionprovider_share_with_application">"<ns2:g id="APPLICATION_NAME">%s</ns2:g> کے ساتھ اشتراک کریں"</string>
     <string msgid="1656852541809559762" name="abc_toolbar_collapse_description">"سکیڑیں"</string>
+    <string name="bottomsheet_action_expand_halfway">نصف تک پھیلائیں</string>
+    <string name="buttons_rect_bottom_center">نیچے</string>
+    <string name="buttons_rect_bottom_left">نیچے بائیں طرف</string>
+    <string name="buttons_rect_bottom_right">نیچے دائیں طرف</string>
+    <string name="buttons_rect_left_bottom">نیچے، بائیں طرف</string>
+    <string name="buttons_rect_left_center">بیچ میں بائیں طرف</string>
+    <string name="buttons_rect_left_top">اوپر، بائیں طرف</string>
+    <string name="buttons_rect_right_bottom">نیچے، دائیں طرف</string>
+    <string name="buttons_rect_right_center">بیچ میں دائیں طرف</string>
+    <string name="buttons_rect_right_top">اوپر، دائیں طرف</string>
+    <string name="buttons_rect_top_center">سر فہرست</string>
+    <string name="buttons_rect_top_left">اوپر بائیں طرف</string>
+    <string name="buttons_rect_top_right">اوپر دائیں طرف</string>
+    <string name="buttons_round_bottom_center">نیچے</string>
+    <string name="buttons_round_bottom_left">نیچے بائیں طرف</string>
+    <string name="buttons_round_bottom_left_lower">نیچے بائیں طرف، نچلا</string>
+    <string name="buttons_round_bottom_left_upper">نیچے بائیں طرف، اوپری</string>
+    <string name="buttons_round_bottom_right">نیچے دائیں طرف</string>
+    <string name="buttons_round_bottom_right_lower">نیچے دائیں طرف، نچلا</string>
+    <string name="buttons_round_bottom_right_upper">نیچے دائیں طرف، اوپری</string>
+    <string name="buttons_round_center_left">بیچ میں بائیں طرف</string>
+    <string name="buttons_round_center_right">بیچ میں دائیں طرف</string>
+    <string name="buttons_round_top_center">سر فہرست</string>
+    <string name="buttons_round_top_left">اوپر بائیں طرف</string>
+    <string name="buttons_round_top_left_lower">اوپر بائیں طرف، نچلا</string>
+    <string name="buttons_round_top_left_upper">اوپر بائیں طرف، اوپری</string>
+    <string name="buttons_round_top_right">اوپر دائیں طرف</string>
+    <string name="buttons_round_top_right_lower">اوپر دائیں طرف، نچلا</string>
+    <string name="buttons_round_top_right_upper">اوپر دائیں طرف، اوپری</string>
+    <string name="character_counter_content_description">%2$d میں سے %1$d حروف درج کیے گئے</string>
+    <string name="character_counter_overflowed_content_description">حروف کی تعداد کی حد %2$d سے %1$d پہنچ گئی</string>
+    <string name="clear_text_end_icon_content_description">ٹیکسٹ صاف کریں</string>
     <string msgid="8585111718777012708" name="common_google_play_services_enable_button">"فعال کریں"</string>
-    <string msgid="7045129128108380659" name="common_google_play_services_enable_text">"‏جب تک آپ Google Play سروسز فعال نہیں کر لیتے، <ns1:g id="APP_NAME">%1$s</ns1:g> کام نہیں کرے گی۔"</string>
+    <string msgid="7045129128108380659" name="common_google_play_services_enable_text">"‏جب تک آپ Google Play سروسز فعال نہیں کر لیتے، <ns2:g id="APP_NAME">%1$s</ns2:g> کام نہیں کرے گی۔"</string>
     <string msgid="3147157405986503375" name="common_google_play_services_enable_title">"‏Google Play سروسز فعال کریں"</string>
     <string msgid="9115728400623041681" name="common_google_play_services_install_button">"انسٹال کریں"</string>
-    <string msgid="8179894293032530091" name="common_google_play_services_install_text">"‏<ns1:g id="APP_NAME">%1$s</ns1:g> Google Play سروسز کے بغیر نہیں چلے گی، جو آپ کے آلہ سے غائب ہیں۔"</string>
+    <string msgid="8179894293032530091" name="common_google_play_services_install_text">"‏<ns2:g id="APP_NAME">%1$s</ns2:g> Google Play سروسز کے بغیر نہیں چلے گی، جو آپ کے آلہ سے غائب ہیں۔"</string>
     <string msgid="7442193194585196676" name="common_google_play_services_install_title">"‏Google Play سروسز حاصل کریں"</string>
     <string msgid="4293541511340436975" name="common_google_play_services_notification_channel_name">"‏Google Play سروسز کی دستیابی"</string>
     <string msgid="180394615667698242" name="common_google_play_services_notification_ticker">"‏Google Play سروسز کی خرابی"</string>
-    <string msgid="2518680582564677258" name="common_google_play_services_unknown_issue">"‏<ns1:g id="APP_NAME">%1$s</ns1:g> کو Google Play سروسز کے ساتھ مسئلہ پیش آ رہا ہے۔ براہ کرم دوبارہ کوشش کریں۔"</string>
-    <string msgid="5501187292256987189" name="common_google_play_services_unsupported_text">"‏<ns1:g id="APP_NAME">%1$s</ns1:g> Google Play سروسز کے بغیر نہیں چلے گی، جن کی آپ کا آلہ معاونت نہیں کرتا۔"</string>
+    <string msgid="2518680582564677258" name="common_google_play_services_unknown_issue">"‏<ns2:g id="APP_NAME">%1$s</ns2:g> کو Google Play سروسز کے ساتھ مسئلہ پیش آ رہا ہے۔ براہ کرم دوبارہ کوشش کریں۔"</string>
+    <string msgid="5501187292256987189" name="common_google_play_services_unsupported_text">"‏<ns2:g id="APP_NAME">%1$s</ns2:g> Google Play سروسز کے بغیر نہیں چلے گی، جن کی آپ کا آلہ معاونت نہیں کرتا۔"</string>
     <string msgid="8172070149091615356" name="common_google_play_services_update_button">"اپ ڈیٹ کریں"</string>
-    <string msgid="7773943415006962566" name="common_google_play_services_update_text">"‏جب تک آپ Google Play سروسز اپ ڈیٹ نہیں کر لیتے ہیں <ns1:g id="APP_NAME">%1$s</ns1:g> تب تک نہیں چلے گی۔"</string>
+    <string msgid="7773943415006962566" name="common_google_play_services_update_text">"‏جب تک آپ Google Play سروسز اپ ڈیٹ نہیں کر لیتے ہیں <ns2:g id="APP_NAME">%1$s</ns2:g> تب تک نہیں چلے گی۔"</string>
     <string msgid="8706675115216073244" name="common_google_play_services_update_title">"‏Google Play سروسز اپ ڈیٹ کریں"</string>
-    <string msgid="7894275749778928941" name="common_google_play_services_updating_text">"‏<ns1:g id="APP_NAME">%1$s</ns1:g> Google Play سروسز کے بغیر نہیں چلے گی، جو فی الحال اپ ڈیٹ ہو رہی ہیں۔"</string>
+    <string msgid="7894275749778928941" name="common_google_play_services_updating_text">"‏<ns2:g id="APP_NAME">%1$s</ns2:g> Google Play سروسز کے بغیر نہیں چلے گی، جو فی الحال اپ ڈیٹ ہو رہی ہیں۔"</string>
     <string msgid="2804989272736383918" name="common_google_play_services_wear_update_text">"‏Google Play سروسز کے نئے ورژن کی ضرورت ہے۔ یہ تھوڑی دیر میں خود ہی اپنے آپ کو اپ ڈیٹ کر لے گا۔"</string>
     <string msgid="5201977337835724196" name="common_open_on_phone">"فون پر کھولیں"</string>
     <string msgid="3441753203274453993" name="common_signin_button_text">"سائن ان کریں"</string>
@@ -49,8 +106,72 @@
     <string msgid="8809042819843332546" name="confirmation_overlay_a11y_description_phone">"آپ کے فون پر کھول دی گئی"</string>
     <string msgid="2936753235333429892" name="confirmation_overlay_a11y_description_success">"کامیاب"</string>
     <string msgid="4327971892987955014" name="confirmation_overlay_a11y_type_image">"تصویر"</string>
+    <string msgid="3209159573327985035" name="copy">"کاپی کریں"</string>
+    <string name="dismiss_overlay_button_label">چھوڑ دیں</string>
+    <string name="error_icon_content_description">خرابی</string>
+    <string msgid="1234962710353108940" name="expand_button_title">"جدید ترین"</string>
+    <string name="exposed_dropdown_menu_content_description">ڈراپ ڈاؤن مینو دکھائیں</string>
+    <string name="generic_cancel">منسوخ کریں</string>
+    <string name="generic_yes">ہاں</string>
+    <string name="icon_content_description">ڈائیلاگ کا آئیکن</string>
+    <string name="item_view_role_description">ٹیب</string>
+    <string name="material_clock_toggle_content_description">AM یا PM منتخب کریں</string>
+    <string name="material_hour_selection">گھنٹہ منتخب کریں</string>
+    <string name="material_hour_suffix">%1$s بجے</string>
+    <string name="material_minute_selection">منٹ منتخب کریں</string>
+    <string name="material_minute_suffix">%1$s منٹ</string>
+    <string name="material_timepicker_am">قبل از دوپہر</string>
+    <string name="material_timepicker_clock_mode_description">وقت ان پٹ کے لیے گھڑی و‏ضع پر سوئچ کریں۔</string>
+    <string name="material_timepicker_hour">گھنٹہ</string>
+    <string name="material_timepicker_minute">منٹ</string>
+    <string name="material_timepicker_pm">رات</string>
+    <string name="material_timepicker_select_time">وقت منتخب کریں</string>
+    <string name="material_timepicker_text_input_mode_description">وقت ان پٹ کے لیے ٹیکسٹ ان پٹ وضع پر سوئچ کریں۔</string>
+    <string name="mtrl_badge_numberless_content_description">نئی اطلاع</string>
+    <string name="mtrl_chip_close_icon_content_description">%1$s کو ہٹائیں</string>
+    <string name="mtrl_exceed_max_badge_number_content_description">%1$d سے زیادہ نئی اطلاعات</string>
+    <string name="mtrl_picker_a11y_next_month">اگلے مہینہ میں منتقل کریں</string>
+    <string name="mtrl_picker_a11y_prev_month">گزشتہ ماہ میں منتقل کریں</string>
+    <string name="mtrl_picker_announce_current_selection">موجودہ انتخاب: %1$s</string>
+    <string name="mtrl_picker_confirm">@android:string/ok</string>
+    <string name="mtrl_picker_date_header_selected">%1$s</string>
+    <string name="mtrl_picker_date_header_title">تاریخ منتخب کریں</string>
+    <string name="mtrl_picker_date_header_unselected">منتخب کردہ تاریخ</string>
+    <string name="mtrl_picker_day_of_week_column_header">دنوں کا کالم: %1$s</string>
+    <string name="mtrl_picker_invalid_format">غلط فارمیٹ۔</string>
+    <string name="mtrl_picker_invalid_format_example">مثال: %1$s۔</string>
+    <string name="mtrl_picker_invalid_format_use">%1$s استعمال کریں</string>
+    <string name="mtrl_picker_invalid_range">غلط رینج۔</string>
+    <string name="mtrl_picker_navigate_to_year_description">%1$s سال پر نیویگیٹ کریں</string>
+    <string name="mtrl_picker_out_of_range">حد سے باہر: %1$s</string>
+    <string name="mtrl_picker_range_header_only_end_selected">تاریخ آغاز – %1$s</string>
+    <string name="mtrl_picker_range_header_only_start_selected">%1$s – تاریخ اختتام</string>
+    <string name="mtrl_picker_range_header_selected">%1$s – %2$s</string>
+    <string name="mtrl_picker_range_header_title">رینج منتخب کریں</string>
+    <string name="mtrl_picker_range_header_unselected">تاریخ آغاز - تاریخ اختتام</string>
+    <string name="mtrl_picker_save">محفوظ کریں</string>
+    <string name="mtrl_picker_text_input_date_hint">تاریخ</string>
+    <string name="mtrl_picker_text_input_date_range_end_hint">تاریخ اختتام</string>
+    <string name="mtrl_picker_text_input_date_range_start_hint">تاریخ آغاز</string>
+    <string name="mtrl_picker_text_input_day_abbr">d</string>
+    <string name="mtrl_picker_text_input_month_abbr">m</string>
+    <string name="mtrl_picker_text_input_year_abbr">y</string>
+    <string name="mtrl_picker_toggle_to_calendar_input_mode">کیلنڈر ان پٹ وضع پر سوئچ کریں</string>
+    <string name="mtrl_picker_toggle_to_day_selection">دن کو منتخب کرنے کے ليے سوئچ پر تھپتھپائیں</string>
+    <string name="mtrl_picker_toggle_to_text_input_mode">متنی ان پٹ وضع پر سوئچ کریں</string>
+    <string name="mtrl_picker_toggle_to_year_selection">سال کو منتخب کرنے کے ليے سوئچ پر تھپتھپائیں</string>
+    <string name="navigation_drawer_content_description">نیویگیشن دراز</string>
+    <string msgid="478774118347071097" name="not_set">"سیٹ نہیں ہے"</string>
+    <string name="password_toggle_content_description">پاس ورڈ دکھائیں</string>
+    <string msgid="7961817945132860002" name="preference_copied">"\"<ns2:g id="SUMMARY">%1$s</ns2:g>\" کلپ بورڈ میں کاپی ہو گیا۔"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"تلاش کریں"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"+999"</string>
+    <string msgid="5190123168583152844" name="summary_collapsed_preference_list">"<ns2:g id="CURRENT_ITEMS">%1$s</ns2:g>، <ns2:g id="ADDED_ITEMS">%2$s</ns2:g>"</string>
+    <string name="time_difference_now">ابھی</string>
+    <string name="time_difference_short_days_and_hours" ns1:ignore="ByteOrderMark">%1$s %2$s</string>
+    <string name="time_difference_short_hours_and_minutes" ns1:ignore="ByteOrderMark">%1$s %2$s</string>
+    <string msgid="5138405918326871307" name="v7_preference_off">"آف ہے"</string>
+    <string msgid="27351710992731591" name="v7_preference_on">"آن"</string>
     <string msgid="8863821639144537553" name="ws_action_drawer_content_description">"کارروائی دراز"</string>
     <string msgid="777117228299084604" name="ws_navigation_drawer_content_description">"نیویگیشن دراز"</string>
 </resources>

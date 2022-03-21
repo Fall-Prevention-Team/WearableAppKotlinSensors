@@ -5,12 +5,13 @@ dimen inner_frame_layout_padding
 id accel_val_x
 id accel_val_y
 id accel_val_z
-id boxInsetLayout
-id button
-id button2
+id deviceconnectionStatusTv
 id gyro_val_x
 id gyro_val_y
 id gyro_val_z
+id sendmessageButton
+id status
+id statusScrollView
 layout activity_main
 mipmap ic_launcher
 string accel_val_x
@@ -22,3 +23,5 @@ string button_stop
 string gyroscope_val_x
 string gyroscope_val_y
 string gyroscope_val_z
+string mobile_device_is_connected
+string status

@@ -1,102 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/boxInsetLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     tools:deviceIds="wear">
 
-    <TextView
-        android:id="@+id/accel_val_x"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/accel_val_x"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.258"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.117" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_box="all"
+        tools:ignore="MissingPrefix">
 
-    <TextView
-        android:id="@+id/accel_val_y"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/accel_val_y"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.257" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/accel_val_z"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/accel_val_z"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.411" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/gyro_val_x"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/gyroscope_val_x"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.715"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.117" />
+                <Button
+                    android:id="@+id/sendmessageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_start"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5pt"
+                    />
 
-    <TextView
-        android:id="@+id/gyro_val_y"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="52dp"
-        android:layout_marginBottom="164dp"
-        android:text="@string/gyroscope_val_y"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+                <TextView
+                    android:id="@+id/deviceconnectionStatusTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:scrollbars="vertical"
+                    android:text="@string/mobile_device_is_connected"
+                    android:textSize="10sp"
+                    android:visibility="visible"
+                    tools:ignore="SmallSp" />
 
-    <TextView
-        android:id="@+id/gyro_val_z"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/gyroscope_val_z"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.71"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38" />
+                <TextView
+                    android:id="@+id/accel_val_x"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/accel_val_x"
+                    android:layout_gravity="center"/>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_start"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.875" />
+                <TextView
+                    android:id="@+id/accel_val_y"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/accel_val_y"
+                    android:layout_gravity="center"/>
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_stop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.898" />
+                <TextView
+                    android:id="@+id/accel_val_z"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/accel_val_z"
+                    android:layout_gravity="center"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/gyro_val_x"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gyroscope_val_x"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:id="@+id/gyro_val_y"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gyroscope_val_y"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:id="@+id/gyro_val_z"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gyroscope_val_z"
+                    android:layout_gravity="center"/>
+
+
+                <ScrollView
+                    android:id="@+id/statusScrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="225dp">
+
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="11sp"
+                        android:text="@string/status"
+                        tools:ignore="SmallSp"/>
+                </ScrollView>
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </FrameLayout>
+
+
+
+
+
+
+</androidx.wear.widget.BoxInsetLayout>

@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">WearOSApp</string>
-    <string name="accel_val_x">sensor</string>
-    <string name="button_stop">Button</string>
-    <string name="button_start">Button</string>
-    <string name="accel_val_y">TextView</string>
-    <string name="accel_val_z">TextView</string>
-    <string name="gyroscope_val_x">TextView</string>
-    <string name="gyroscope_val_y">TextView</string>
-    <string name="gyroscope_val_z">TextView</string>
+    <string name="button_stop">stop</string>
+    <string name="button_start">start</string>
+    <string name="accel_val_x">accx</string>
+    <string name="accel_val_y">accy</string>
+    <string name="accel_val_z">accz</string>
+    <string name="gyroscope_val_x">gyrox</string>
+    <string name="gyroscope_val_y">gyroy</string>
+    <string name="gyroscope_val_z">gyroz</string>
+    <string name="mobile_device_is_connected">Mobile device not paired</string>
+    <string name="status">status</string>
 </resources>

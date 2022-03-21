@@ -6,28 +6,52 @@
                 {
                     "source": "C:\\Users\\krist\\Documents\\Android\\FallWearApp\\wearable\\src\\main\\res\\values-round\\strings.xml",
                     "from": {
-                        "startLines": "1,4,5,3,2,6,7,8",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "17,159,207,111,65,255,306,357",
-                        "endColumns": "46,46,46,46,44,49,49,49",
-                        "endOffsets": "59,201,249,153,105,300,351,402"
+                        "startLines": "1,4,5,3,2,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "17,159,207,111,65,255,306,357,408",
+                        "endColumns": "46,46,46,46,44,49,49,49,79",
+                        "endOffsets": "59,201,249,153,105,300,351,402,483"
                     },
                     "to": {
-                        "startLines": "5,6,7,8,9,10,11,12",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "284,331,378,425,472,517,567,617",
-                        "endColumns": "46,46,46,46,44,49,49,49",
-                        "endOffsets": "326,373,420,467,512,562,612,662"
+                        "startLines": "13,14,15,16,17,18,19,20,21",
+                        "startColumns": "4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "846,893,940,987,1034,1079,1129,1179,1229",
+                        "endColumns": "46,46,46,46,44,49,49,49,79",
+                        "endOffsets": "888,935,982,1029,1074,1124,1174,1224,1304"
                     }
                 },
                 {
-                    "source": "C:\\Users\\krist\\.gradle\\caches\\transforms-3\\2208c84ab26681deb031ca1ddfe88088\\transformed\\wear-1.2.0\\res\\values-round-v23\\values-round-v23.xml",
+                    "source": "C:\\Users\\krist\\.gradle\\caches\\transforms-3\\566267f6a19fe847d4c15cd095309c90\\transformed\\wearable-2.9.0\\res\\values-round-v23\\values.xml",
+                    "from": {
+                        "startLines": "4,5,9,10,11,12,13,14",
+                        "startColumns": "0,0,0,0,0,0,0,0",
+                        "startOffsets": "213,269,531,608,689,733,804,877",
+                        "endColumns": "55,56,76,80,43,70,72,70",
+                        "endOffsets": "268,325,607,688,732,803,876,947"
+                    },
+                    "to": {
+                        "startLines": "2,3,5,6,7,8,9,10",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,115,239,320,405,453,528,605",
+                        "endColumns": "59,60,80,84,47,74,76,74",
+                        "endOffsets": "110,171,315,400,448,523,600,675"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\krist\\.gradle\\caches\\transforms-3\\17a83cc963a53c31be4e4b72038e87cb\\transformed\\wear-1.2.0\\res\\values-round-v23\\values-round-v23.xml",
                     "from": {
                         "startLines": "2,3,4",
                         "startColumns": "4,4,4",
                         "startOffsets": "55,118,204",
                         "endColumns": "62,85,79",
                         "endOffsets": "113,199,279"
+                    },
+                    "to": {
+                        "startLines": "4,11,12",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "176,680,766",
+                        "endColumns": "62,85,79",
+                        "endOffsets": "234,761,841"
                     }
                 }
             ]

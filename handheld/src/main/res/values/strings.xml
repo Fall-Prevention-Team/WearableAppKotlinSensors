@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">Handheld</string>
-    <string name="button1">ON/OFF</string>
-    <string name="data">data</string>
-    <string name="status">status</string>
-    <string name="connection_established">connection established</string>
-    <string name="init">...</string>
-</resources>

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.Settings.Secure
 import android.util.Log
@@ -16,6 +17,7 @@ import com.google.android.gms.wearable.*
 import kotlinx.coroutines.*
 import org.json.JSONObject
 import java.io.*
+import java.lang.ref.WeakReference
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
@@ -42,7 +44,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
 
     private var messageEvent: MessageEvent? = null
     private var wearableNodeUri: String? = null
-    private var urlString = "https://httpbin.org/post"
 
     private lateinit var binding: ActivityMainBinding
 
@@ -268,74 +269,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
         return resBool
     }
 
-    private fun httpPost(data: ByteArray) {
-
-        try {
-            val url: URL = URL(urlString)
-            val urlConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
-            try {
-
-                urlConnection.setRequestMethod("POST");
-                urlConnection.setReadTimeout(1200);
-                urlConnection.setConnectTimeout(1200);
-                urlConnection.setDoOutput(true);
-
-                val os = urlConnection.getOutputStream();
-                os.write(data);
-                os.flush();
-                os.close();
-
-                val responseCode = urlConnection.getResponseCode();
-
-                if (responseCode == 200) {
-                    val inputstream: InputStream =
-                        BufferedInputStream(urlConnection.getInputStream());
-                    return readStream(inputstream);
-                }
-
-            } catch (e: IOException) {
-                e.printStackTrace();
-            } finally {
-                urlConnection.disconnect();
-            }
-        } catch (e: MalformedURLException) {
-            e.printStackTrace();
-        }
-    }
-
-        fun readStream(inputstream: InputStream) {
-            val br = BufferedReader(InputStreamReader(inputstream));
-            val sb = StringBuilder();
-            var line: String? = null;
-            line = br.readLine()
-            while (line != null) {
-                sb.append(line + "\n");
-                line = br.readLine()
-            }
-            System.out.println(sb.toString());
-            br.close();
-
-
-//        val urlCn: HttpURLConnection = url.openConnection() as HttpURLConnection
-//        try {
-//            val `in`: InputStream = BufferedInputStream(urlCn.inputStream)
-//            `in`.read()
-//        } finally {
-//            urlCn.disconnect()
-//        }
-//        val urlConnection = url.openConnection() as HttpURLConnection
-//        try {
-//            urlConnection.doOutput = true
-//            urlConnection.setChunkedStreamingMode(0)
-//            val out: OutputStream = BufferedOutputStream(urlConnection.outputStream)
-//            out.write(data)
-//            val `in`: InputStream = BufferedInputStream(urlConnection.inputStream)
-//            `in`.read()
-//        } finally {
-//            urlConnection.disconnect()
-//        }
-    }
-
 
     override fun onDataChanged(p0: DataEventBuffer) {
     }
@@ -354,8 +287,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
             Log.d("android id", Secure.getString(contentResolver, Secure.ANDROID_ID))
             val sendObject = JSONObject(map)
             Log.d("send object", sendObject.toString())
-            //httpPost(sendObject.toString().toByteArray())
-
+            val task = MyAsyncTask(this)
+            task.execute(sendObject.toString().toByteArray())
             val s = floatArray.contentToString()
             val debugString = floatArray.contentToString()
 
@@ -442,4 +375,98 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
             e.printStackTrace()
         }
     }
+
+    companion object {
+        class MyAsyncTask internal constructor(context: MainActivity) : AsyncTask<ByteArray, String, String?>() {
+            private val activityReference: WeakReference<MainActivity> = WeakReference(context)
+            private var resp: String? = null
+            private var urlString = "https://httpbin.org/post"
+
+            override fun onPreExecute() {
+            }
+
+            override fun doInBackground(vararg params: ByteArray): String? {
+                publishProgress("Sleeping Started") // Calls onProgressUpdate()
+                try {
+                    httpPost(params[0])
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                    resp = e.message
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    resp = e.message
+                }
+
+                return resp
+            }
+
+            override fun onPostExecute(result: String?) {
+
+                val activity = activityReference.get()
+                if (activity == null || activity.isFinishing) return
+                Toast.makeText(activity, "We send some shit", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onProgressUpdate(vararg text: String?) {
+
+                val activity = activityReference.get()
+                if (activity == null || activity.isFinishing) return
+                Toast.makeText(activity, text.firstOrNull(), Toast.LENGTH_SHORT).show()
+            }
+
+            private fun httpPost(data: ByteArray) {
+                try {
+                    val url: URL = URL(urlString)
+                    val urlConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
+                    Log.d("URLConnection", "hello")
+                    try {
+
+                        urlConnection.setRequestMethod("POST");
+                        urlConnection.setReadTimeout(1200);
+                        urlConnection.setConnectTimeout(1200);
+                        urlConnection.setDoOutput(true);
+
+                        val os = urlConnection.getOutputStream();
+                        Log.d("Write", "hello")
+                        os.write(data);
+                        os.flush();
+                        os.close();
+
+                        Log.d("this was send", data.decodeToString())
+
+                        val responseCode = urlConnection.getResponseCode();
+
+                        if (responseCode == 200) {
+                            val inputstream: InputStream =
+                                BufferedInputStream(urlConnection.getInputStream());
+                            return readStream(inputstream);
+                        }
+
+                    } catch (e: IOException) {
+                        e.printStackTrace();
+                    } finally {
+                        urlConnection.disconnect();
+                    }
+                } catch (e: MalformedURLException) {
+                    e.printStackTrace();
+                }
+            }
+
+            fun readStream(inputstream: InputStream) {
+                val br = BufferedReader(InputStreamReader(inputstream));
+                val sb = StringBuilder();
+                var line: String? = null;
+                line = br.readLine()
+                while (line != null) {
+                    sb.append(line + "\n");
+                    line = br.readLine()
+                }
+                System.out.println(sb.toString());
+                Log.d("recieved answer", sb.toString())
+                br.close();
+            }
+        }
+    }
+
+
 }

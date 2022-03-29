@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
     private fun storeData(p0: SensorEvent){
         timeout += 1
         Log.d("timeout", timeout.toString())
-        if (timeout == 10){
+        if (timeout == 100){
             for (i in 0..p0.values.size-1){
 
                 if (count < MAX_COUNT){

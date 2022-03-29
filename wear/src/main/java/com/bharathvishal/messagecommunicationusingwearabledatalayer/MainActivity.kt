@@ -2,6 +2,10 @@ package com.bharathvishal.messagecommunicationusingwearabledatalayer
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -13,12 +17,17 @@ import androidx.wear.ambient.AmbientModeSupport
 import androidx.wear.ambient.AmbientModeSupport.AmbientCallback
 import com.bharathvishal.messagecommunicationusingwearabledatalayer.databinding.ActivityMainBinding
 import com.google.android.gms.wearable.*
+import java.nio.ByteBuffer
 import java.nio.charset.StandardCharsets
 
 class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProvider,
     DataClient.OnDataChangedListener,
     MessageClient.OnMessageReceivedListener,
-    CapabilityClient.OnCapabilityChangedListener {
+    CapabilityClient.OnCapabilityChangedListener,
+    SensorEventListener {
+    var myAccelerometer : Sensor ?= null
+    var mySensorManager : SensorManager ?= null
+
     private var activityContext: Context? = null
 
     private lateinit var binding: ActivityMainBinding
@@ -27,8 +36,6 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
     private val APP_OPEN_WEARABLE_PAYLOAD_PATH = "/APP_OPEN_WEARABLE_PAYLOAD"
 
     private var mobileDeviceConnected: Boolean = false
-
-
     // Payload string items
     private val wearableAppCheckPayloadReturnACK = "AppOpenWearableACK"
 
@@ -47,6 +54,9 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         val view = binding.root
         setContentView(view)
 
+        mySensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        myAccelerometer = mySensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+
         activityContext = this
 
         // Enables Always-on
@@ -54,60 +64,104 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
 
 
         //On click listener for sendmessage button
-//        binding.sendmessageButton.setOnClickListener {
-//            if (mobileDeviceConnected) {
-//                if (binding.messagecontentEditText.text!!.isNotEmpty()) {
-//
-//                    val nodeId: String = messageEvent?.sourceNodeId!!
-//                    // Set the data of the message to be the bytes of the Uri.
-//                    val payload: ByteArray =
-//                        binding.messagecontentEditText.text.toString().toByteArray()
-//
-//                    // Send the rpc
-//                    // Instantiates clients without member variables, as clients are inexpensive to
-//                    // create. (They are cached and shared between GoogleApi instances.)
-//                    val sendMessageTask =
-//                        Wearable.getMessageClient(activityContext!!)
-//                            .sendMessage(nodeId, MESSAGE_ITEM_RECEIVED_PATH, payload)
-//
-//                    binding.deviceconnectionStatusTv.visibility = View.GONE
-//
-//                    sendMessageTask.addOnCompleteListener {
-//                        if (it.isSuccessful) {
-//                            Log.d("send1", "Message sent successfully")
-//                            val sbTemp = StringBuilder()
-//                            sbTemp.append("\n")
-//                            sbTemp.append(binding.messagecontentEditText.text.toString())
-//                            sbTemp.append(" (Sent to mobile)")
-//                            Log.d("receive1", " $sbTemp")
-//                            binding.messagelogTextView.append(sbTemp)
-//
-//                            binding.scrollviewTextMessageLog.requestFocus()
-//                            binding.scrollviewTextMessageLog.post {
-//                                binding.scrollviewTextMessageLog.fullScroll(ScrollView.FOCUS_DOWN)
-//                            }
-//                        } else {
-//                            Log.d("send1", "Message failed.")
-//                        }
-//                    }
-//                } else {
-//                    Toast.makeText(
-//                        activityContext,
-//                        "Data object is empty.",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-//            }
-//        }
+        binding.sendmessageButton.setOnClickListener {
+            if (mobileDeviceConnected) {
+                if (binding.messagecontentEditText.text!!.isNotEmpty()) {
+
+                    val nodeId: String = messageEvent?.sourceNodeId!!
+                    // Set the data of the message to be the bytes of the Uri.
+                    val payload: ByteArray =
+                        binding.messagecontentEditText.text.toString().toByteArray()
+
+                    // Send the rpc
+                    // Instantiates clients without member variables, as clients are inexpensive to
+                    // create. (They are cached and shared between GoogleApi instances.)
+                    val sendMessageTask =
+                        Wearable.getMessageClient(activityContext!!)
+                            .sendMessage(nodeId, MESSAGE_ITEM_RECEIVED_PATH, payload)
+
+                    binding.deviceconnectionStatusTv.visibility = View.GONE
+
+                    sendMessageTask.addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            Log.d("send1", "Message sent successfully")
+                            val sbTemp = StringBuilder()
+                            sbTemp.append("\n")
+                            sbTemp.append(binding.messagecontentEditText.text.toString())
+                            sbTemp.append(" (Sent to mobile)")
+                            Log.d("receive1", " $sbTemp")
+                            binding.messagelogTextView.append(sbTemp)
+
+                            binding.scrollviewTextMessageLog.requestFocus()
+                            binding.scrollviewTextMessageLog.post {
+                                binding.scrollviewTextMessageLog.fullScroll(ScrollView.FOCUS_DOWN)
+                            }
+                        } else {
+                            Log.d("send1", "Message failed.")
+                        }
+                    }
+                } else {
+                    Toast.makeText(
+                        activityContext,
+                        "Data object is empty.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
     }
 
+    private fun floatToByteArray (value: Float): ByteArray {
+        var returnValue:ByteArray = ByteBuffer.allocate(4).putFloat(value).array()
+//        val buffer = ByteBuffer.wrap(returnValue)
+//        Log.d("returnValue", buffer.getFloat(0).toString())
+        return returnValue
+    }
+
+    private var MAX_COUNT = 60
+    private var sendableData: ByteArray = ByteArray(MAX_COUNT * 4)
+    private var count = 0
+    private var timeout = 0;
+
+    override fun onSensorChanged(p0: SensorEvent?) {
+        if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER)){
+            storeData(p0)
+        }
+    }
+
+    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+    }
+
+    private fun storeData(p0: SensorEvent){
+        timeout += 1
+        Log.d("timeout", timeout.toString())
+        if (timeout == 10){
+            for (i in 0..p0.values.size-1){
+
+                if (count < MAX_COUNT){
+                    for (some in 0..3){
+                        sendableData[some + count * 4] = floatToByteArray(p0.values[i])[some]
+                    }
+                    count += 1
+                }else{
+                    sendData(sendableData)
+                    count = 0
+                }
+            }
+            timeout = 0
+        }
+    }
 
     private fun sendData(data:ByteArray){
         if (mobileDeviceConnected) {
+            val debugString = String(data)
+            Log.d("data is not empty", debugString)
             if (data.isNotEmpty()) {
                 val nodeId: String = messageEvent?.sourceNodeId!!
                 // Set the data of the message to be the bytes of the Uri.
                 val payload: ByteArray = data
+                val debugString1 = String(data)
+                Log.d("payload", debugString1)
                 // Send the rpc
                 // Instantiates clients without member variables, as clients are inexpensive to
                 // create. (They are cached and shared between GoogleApi instances.)
@@ -268,6 +322,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
     override fun onResume() {
         super.onResume()
         try {
+            mySensorManager!!.registerListener(this, myAccelerometer, SensorManager.SENSOR_DELAY_UI)
             Wearable.getDataClient(activityContext!!).addListener(this)
             Wearable.getMessageClient(activityContext!!).addListener(this)
             Wearable.getCapabilityClient(activityContext!!)

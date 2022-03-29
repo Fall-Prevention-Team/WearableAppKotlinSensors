@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings.Secure
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -13,6 +14,12 @@ import com.bharathvishal.messagecommunicationusingwearabledatalayer.databinding.
 import com.google.android.gms.tasks.Tasks
 import com.google.android.gms.wearable.*
 import kotlinx.coroutines.*
+import org.json.JSONObject
+import java.io.*
+import java.net.HttpURLConnection
+import java.net.MalformedURLException
+import java.net.URL
+import java.nio.ByteBuffer
 import java.nio.charset.StandardCharsets
 import java.util.*
 
@@ -35,6 +42,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
 
     private var messageEvent: MessageEvent? = null
     private var wearableNodeUri: String? = null
+    private var urlString = "https://httpbin.org/post"
 
     private lateinit var binding: ActivityMainBinding
 
@@ -260,15 +268,98 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
         return resBool
     }
 
+    private fun httpPost(data: ByteArray) {
+
+        try {
+            val url: URL = URL(urlString)
+            val urlConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
+            try {
+
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setReadTimeout(1200);
+                urlConnection.setConnectTimeout(1200);
+                urlConnection.setDoOutput(true);
+
+                val os = urlConnection.getOutputStream();
+                os.write(data);
+                os.flush();
+                os.close();
+
+                val responseCode = urlConnection.getResponseCode();
+
+                if (responseCode == 200) {
+                    val inputstream: InputStream =
+                        BufferedInputStream(urlConnection.getInputStream());
+                    return readStream(inputstream);
+                }
+
+            } catch (e: IOException) {
+                e.printStackTrace();
+            } finally {
+                urlConnection.disconnect();
+            }
+        } catch (e: MalformedURLException) {
+            e.printStackTrace();
+        }
+    }
+
+        fun readStream(inputstream: InputStream) {
+            val br = BufferedReader(InputStreamReader(inputstream));
+            val sb = StringBuilder();
+            var line: String? = null;
+            line = br.readLine()
+            while (line != null) {
+                sb.append(line + "\n");
+                line = br.readLine()
+            }
+            System.out.println(sb.toString());
+            br.close();
+
+
+//        val urlCn: HttpURLConnection = url.openConnection() as HttpURLConnection
+//        try {
+//            val `in`: InputStream = BufferedInputStream(urlCn.inputStream)
+//            `in`.read()
+//        } finally {
+//            urlCn.disconnect()
+//        }
+//        val urlConnection = url.openConnection() as HttpURLConnection
+//        try {
+//            urlConnection.doOutput = true
+//            urlConnection.setChunkedStreamingMode(0)
+//            val out: OutputStream = BufferedOutputStream(urlConnection.outputStream)
+//            out.write(data)
+//            val `in`: InputStream = BufferedInputStream(urlConnection.inputStream)
+//            `in`.read()
+//        } finally {
+//            urlConnection.disconnect()
+//        }
+    }
+
 
     override fun onDataChanged(p0: DataEventBuffer) {
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "HardwareIds")
     override fun onMessageReceived(p0: MessageEvent) {
+
         try {
-            val s =
-                String(p0.data, StandardCharsets.UTF_8)
+            val buffer = ByteBuffer.wrap(p0.data)
+            var floatArray: FloatArray = FloatArray(60)
+            for (i in 0..59){
+                floatArray[i] = buffer.getFloat()
+            }
+
+            val map = mapOf("id" to Secure.getString(contentResolver, Secure.ANDROID_ID),"content" to floatArray, )
+            Log.d("android id", Secure.getString(contentResolver, Secure.ANDROID_ID))
+            val sendObject = JSONObject(map)
+            Log.d("send object", sendObject.toString())
+            //httpPost(sendObject.toString().toByteArray())
+
+            val s = floatArray.contentToString()
+            val debugString = floatArray.contentToString()
+
+            Log.d("we got something", debugString)
             val messageEventPath: String = p0.path
             Log.d(
                 TAG_MESSAGE_RECEIVED,

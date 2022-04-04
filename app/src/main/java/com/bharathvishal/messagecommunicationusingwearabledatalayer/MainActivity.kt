@@ -380,7 +380,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
         class MyAsyncTask internal constructor(context: MainActivity) : AsyncTask<ByteArray, String, String?>() {
             private val activityReference: WeakReference<MainActivity> = WeakReference(context)
             private var resp: String? = null
-            private var urlString = "https://httpbin.org/post"
+            private var urlString = "http://192.168.43.176:5000/collection"
 
             override fun onPreExecute() {
             }

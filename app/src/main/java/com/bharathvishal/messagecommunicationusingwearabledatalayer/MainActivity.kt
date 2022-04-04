@@ -11,6 +11,10 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.*
 import com.bharathvishal.messagecommunicationusingwearabledatalayer.databinding.ActivityMainBinding
 import com.google.android.gms.tasks.Tasks
 import com.google.android.gms.wearable.*
@@ -44,6 +48,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
 
     private var messageEvent: MessageEvent? = null
     private var wearableNodeUri: String? = null
+
+    private var urlString = "http://192.168.43.176:5000/collection"
 
     private lateinit var binding: ActivityMainBinding
 
@@ -284,36 +290,39 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
             }
 
             val map = mapOf("id" to Secure.getString(contentResolver, Secure.ANDROID_ID),"content" to floatArray, )
-            Log.d("android id", Secure.getString(contentResolver, Secure.ANDROID_ID))
             val sendObject = JSONObject(map)
-            Log.d("send object", sendObject.toString())
-            val task = MyAsyncTask(this)
-            task.execute(sendObject.toString().toByteArray())
-            val s = floatArray.contentToString()
-            val debugString = floatArray.contentToString()
+            //val task = MyAsyncTask(this)
+//            val debugString = sendObject.toString()
+//            Log.d("JSON as string", debugString)
+            val stringRequest = JsonObjectRequest(urlString, sendObject, { response ->
+                Log.d("response", response.toString())
+            }, { error ->
+                Log.d("post error", error.toString())
+            })
 
-            Log.d("we got something", debugString)
+            // Instantiate the cache
+            val cache = DiskBasedCache(cacheDir, 1024 * 1024) // 1MB cap
+
+// Set up the network to use HttpURLConnection as the HTTP client.
+            val network = BasicNetwork(HurlStack())
+
+// Instantiate the RequestQueue with the cache and network. Start the queue.
+            val requestQueue = RequestQueue(cache, network).apply {
+                start()
+            }
+
+            requestQueue.add(stringRequest)
+
+            //task.execute(sendObject.toString().toByteArray())
+
+            val s = floatArray.contentToString()
             val messageEventPath: String = p0.path
-            Log.d(
-                TAG_MESSAGE_RECEIVED,
-                "onMessageReceived() Received a message from watch:"
-                        + p0.requestId
-                        + " "
-                        + messageEventPath
-                        + " "
-                        + s
-            )
             if (messageEventPath == APP_OPEN_WEARABLE_PAYLOAD_PATH) {
                 currentAckFromWearForAppOpenCheck = s
-                Log.d(
-                    TAG_MESSAGE_RECEIVED,
-                    "Received acknowledgement message that app is open in wear"
-                )
-
                 val sbTemp = StringBuilder()
                 sbTemp.append(binding.messagelogTextView.text.toString())
                 sbTemp.append("\nWearable device connected.")
-                Log.d("receive1", " $sbTemp")
+//                Log.d("receive1", " $sbTemp")
                 binding.messagelogTextView.text = sbTemp
                 binding.textInputLayout.visibility = View.VISIBLE
 
@@ -329,9 +338,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
 
                     val sbTemp = StringBuilder()
                     sbTemp.append("\n")
-                    sbTemp.append(s)
-                    sbTemp.append(" - (Received from wearable)")
-                    Log.d("receive1", " $sbTemp")
+                    //sbTemp.append(s)
+                    sbTemp.append("(Received from wearable)")
+//                    Log.d("receive1", " $sbTemp")
                     binding.messagelogTextView.append(sbTemp)
 
                     binding.scrollviewText.requestFocus()
@@ -380,13 +389,13 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
         class MyAsyncTask internal constructor(context: MainActivity) : AsyncTask<ByteArray, String, String?>() {
             private val activityReference: WeakReference<MainActivity> = WeakReference(context)
             private var resp: String? = null
-            private var urlString = "http://192.168.43.176:5000/collection"
+            private var urlString = "https://httpbin.org/post"
 
             override fun onPreExecute() {
             }
 
             override fun doInBackground(vararg params: ByteArray): String? {
-                publishProgress("Sleeping Started") // Calls onProgressUpdate()
+                //publishProgress("Sleeping Started") // Calls onProgressUpdate()
                 try {
                     httpPost(params[0])
                 } catch (e: InterruptedException) {
@@ -420,25 +429,26 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
                     val urlConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
                     Log.d("URLConnection", "hello")
                     try {
+                        urlConnection.doOutput = true;
+                        urlConnection.requestMethod = "POST";
+                        urlConnection.setRequestProperty("Content-Type", "application/json; utf-8")
+                        urlConnection.setRequestProperty("Accept", "application/json");
+                        urlConnection.readTimeout = 7000;
+                        urlConnection.connectTimeout = 7000;
 
-                        urlConnection.setRequestMethod("POST");
-                        urlConnection.setReadTimeout(1200);
-                        urlConnection.setConnectTimeout(1200);
-                        urlConnection.setDoOutput(true);
-
-                        val os = urlConnection.getOutputStream();
-                        Log.d("Write", "hello")
+                        val os = urlConnection.outputStream
+                        Log.d("Written data", urlConnection.content.toString())
                         os.write(data);
                         os.flush();
                         os.close();
 
-                        Log.d("this was send", data.decodeToString())
+                        //Log.d("this was send", data.decodeToString())
 
                         val responseCode = urlConnection.getResponseCode();
 
                         if (responseCode == 200) {
                             val inputstream: InputStream =
-                                BufferedInputStream(urlConnection.getInputStream());
+                                BufferedInputStream(urlConnection.inputStream);
                             return readStream(inputstream);
                         }
 

@@ -123,6 +123,7 @@
 
 
                 <LinearLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -131,25 +132,56 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/sendmessageButton"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="?attr/selectableItemBackground"
+                        android:layout_marginTop="1dp"
                         android:gravity="center"
-                        android:maxLines="2"
-                        android:scrollbars="vertical"
-                        android:text="@string/send_message_to_phone"
-                        android:textColor="?TextInfoColor"
-                        android:textSize="10.5sp"
-                        android:textStyle="bold"
-                        android:visibility="visible"
-                        tools:ignore="SmallSp" />
+                        android:orientation="horizontal">
 
+                        <Button
+                            android:id="@+id/recordFallButton"
+                            android:layout_width="92dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="?attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:maxLines="2"
+                            android:scrollbars="vertical"
+                            android:text="@string/record_fall"
+                            android:textColor="?TextInfoColor"
+                            android:textSize="10.5sp"
+                            android:textStyle="bold"
+                            android:visibility="visible"
+                            tools:ignore="SmallSp,TouchTargetSizeCheck" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="1dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/recordNotFallButton"
+                            android:layout_width="92dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="?attr/selectableItemBackground"
+                            android:gravity="center"
+                            android:maxLines="2"
+                            android:scrollbars="vertical"
+                            android:text="@string/record_not_fall"
+                            android:textColor="?TextInfoColor"
+                            android:textSize="10.5sp"
+                            android:textStyle="bold"
+                            android:visibility="visible"
+                            tools:ignore="SmallSp,TouchTargetSizeCheck" />
+                    </LinearLayout>
                 </LinearLayout>
-
-
             </LinearLayout>
 
         </RelativeLayout>

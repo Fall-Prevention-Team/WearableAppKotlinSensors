@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ScrollView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -47,6 +48,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
 
     private lateinit var ambientController: AmbientModeSupport.AmbientController
 
+    private var recording : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,54 +64,33 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         // Enables Always-on
         ambientController = AmbientModeSupport.attach(this)
 
+        var fall : Boolean = false
 
         //On click listener for sendmessage button
-        binding.sendmessageButton.setOnClickListener {
+        binding.recordFallButton.setOnClickListener {
             if (mobileDeviceConnected) {
-                if (binding.messagecontentEditText.text!!.isNotEmpty()) {
-
-                    val nodeId: String = messageEvent?.sourceNodeId!!
-                    // Set the data of the message to be the bytes of the Uri.
-                    val payload: ByteArray =
-                        binding.messagecontentEditText.text.toString().toByteArray()
-
-                    // Send the rpc
-                    // Instantiates clients without member variables, as clients are inexpensive to
-                    // create. (They are cached and shared between GoogleApi instances.)
-                    val sendMessageTask =
-                        Wearable.getMessageClient(activityContext!!)
-                            .sendMessage(nodeId, MESSAGE_ITEM_RECEIVED_PATH, payload)
-
-                    binding.deviceconnectionStatusTv.visibility = View.GONE
-
-                    sendMessageTask.addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            Log.d("send1", "Message sent successfully")
-                            val sbTemp = StringBuilder()
-                            sbTemp.append("\n")
-                            sbTemp.append(binding.messagecontentEditText.text.toString())
-                            sbTemp.append(" (Sent to mobile)")
-                            Log.d("receive1", " $sbTemp")
-                            binding.messagelogTextView.append(sbTemp)
-
-                            binding.scrollviewTextMessageLog.requestFocus()
-                            binding.scrollviewTextMessageLog.post {
-                                binding.scrollviewTextMessageLog.fullScroll(ScrollView.FOCUS_DOWN)
-                            }
-                        } else {
-                            Log.d("send1", "Message failed.")
-                        }
+                if (sendableData.isNotEmpty()) {
+                    if (recording == false) {
+                        recording = true
+                        binding.recordFallButton.text = "Recording fall... "
+                        fall = true
                     }
-                } else {
-                    Toast.makeText(
-                        activityContext,
-                        "Data object is empty.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                }
+            }
+        }
+        binding.recordNotFallButton.setOnClickListener {
+            if (mobileDeviceConnected) {
+                if (sendableData.isNotEmpty()) {
+                    if (recording == false) {
+                        recording = true
+                        binding.recordFallButton.text = "Recording not fall... "
+                        fall = false
+                    }
                 }
             }
         }
     }
+
 
     private fun floatToByteArray (value: Float): ByteArray {
         var returnValue:ByteArray = ByteBuffer.allocate(4).putFloat(value).array()
@@ -198,6 +179,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                 ).show()
             }
         }
+        recording = false
     }
 
     override fun onDataChanged(p0: DataEventBuffer) {
@@ -263,7 +245,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                             mobileDeviceConnected = true
 
                             binding.textInputLayout.visibility = View.VISIBLE
-                            binding.sendmessageButton.visibility = View.VISIBLE
+                            binding.recordFallButton.visibility = View.VISIBLE
                             binding.deviceconnectionStatusTv.visibility = View.VISIBLE
                             binding.deviceconnectionStatusTv.text = "Mobile device is connected"
                         } else {
@@ -282,7 +264,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                 try {
                     binding.messagelogTextView.visibility = View.VISIBLE
                     binding.textInputLayout.visibility = View.VISIBLE
-                    binding.sendmessageButton.visibility = View.VISIBLE
+                    binding.recordFallButton.visibility = View.VISIBLE
                     binding.deviceconnectionStatusTv.visibility = View.GONE
 
                     val sbTemp = StringBuilder()

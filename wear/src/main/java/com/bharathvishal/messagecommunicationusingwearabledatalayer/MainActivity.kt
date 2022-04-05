@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         return returnValue
     }
 
-    private var MAX_COUNT = 60
+    private var MAX_COUNT = 3
     private var sendableData: ByteArray = ByteArray(MAX_COUNT * 4)
     private var count = 0
     private var timeout = 0;
@@ -134,10 +134,11 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
 
     private fun storeData(p0: SensorEvent){
         timeout += 1
-        Log.d("timeout", timeout.toString())
         if (timeout == 100){
+//            Log.d("Sensor value 1", p0.values[0].toString())
+//            Log.d("Sensor value 2", p0.values[1].toString())
+//            Log.d("Sensor value 3", p0.values[2].toString())
             for (i in 0..p0.values.size-1){
-
                 if (count < MAX_COUNT){
                     for (some in 0..3){
                         sendableData[some + count * 4] = floatToByteArray(p0.values[i])[some]

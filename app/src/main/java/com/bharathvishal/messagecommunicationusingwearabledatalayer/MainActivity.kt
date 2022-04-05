@@ -281,12 +281,11 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
 
     @SuppressLint("SetTextI18n", "HardwareIds")
     override fun onMessageReceived(p0: MessageEvent) {
-
         try {
             val buffer = ByteBuffer.wrap(p0.data)
-            var floatArray: FloatArray = FloatArray(60)
-            for (i in 0..59){
-                floatArray[i] = buffer.getFloat()
+            var floatArray: FloatArray = FloatArray(3)
+            for (i in 0..2){
+                floatArray[i] = buffer.getFloat(i*4)
             }
 
             val map = mapOf("id" to Secure.getString(contentResolver, Secure.ANDROID_ID),"content" to floatArray, )

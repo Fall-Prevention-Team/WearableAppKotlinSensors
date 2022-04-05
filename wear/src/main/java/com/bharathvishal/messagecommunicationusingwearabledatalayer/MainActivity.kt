@@ -47,6 +47,11 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
 
     private lateinit var ambientController: AmbientModeSupport.AmbientController
 
+    private val MAX_COUNT = 6
+    private var sendableData: ByteArray = ByteArray(MAX_COUNT * 4)
+    private var count = 0
+    private var timeout = 0;
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,15 +118,8 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
 
     private fun floatToByteArray (value: Float): ByteArray {
         var returnValue:ByteArray = ByteBuffer.allocate(4).putFloat(value).array()
-//        val buffer = ByteBuffer.wrap(returnValue)
-//        Log.d("returnValue", buffer.getFloat(0).toString())
         return returnValue
     }
-
-    private var MAX_COUNT = 3
-    private var sendableData: ByteArray = ByteArray(MAX_COUNT * 4)
-    private var count = 0
-    private var timeout = 0;
 
     override fun onSensorChanged(p0: SensorEvent?) {
         if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER)){
@@ -135,19 +133,25 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
     private fun storeData(p0: SensorEvent){
         timeout += 1
         if (timeout == 100){
-//            Log.d("Sensor value 1", p0.values[0].toString())
-//            Log.d("Sensor value 2", p0.values[1].toString())
-//            Log.d("Sensor value 3", p0.values[2].toString())
-            for (i in 0..p0.values.size-1){
-                if (count < MAX_COUNT){
+            if (count < MAX_COUNT){
+                for (value in 0..p0.values.size-1){
+                    Log.d("Sensor value " + value.toString(), p0.values[value].toString())
                     for (some in 0..3){
-                        sendableData[some + count * 4] = floatToByteArray(p0.values[i])[some]
+                        sendableData[some + count * 4] = floatToByteArray(p0.values[value])[some]
                     }
                     count += 1
-                }else{
-                    sendData(sendableData)
-                    count = 0
                 }
+            }else{
+                Log.d("sendable data size", sendableData.size.toString())
+                sendData(sendableData)
+                var buffer = ByteBuffer.wrap(sendableData)
+                var debug: FloatArray = FloatArray(6)
+                for (i in 0..5){
+                    debug[i] = buffer.getFloat()
+                    Log.d("debug float " + i.toString(), debug[i].toString())
+                }
+                buffer.clear()
+                count = 0
             }
             timeout = 0
         }

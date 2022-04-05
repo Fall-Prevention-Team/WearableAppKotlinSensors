@@ -11,5 +11,6 @@
     <string name="message">Message Content</string>
     <string name="message_log">Message log</string>
     <string name="init">...</string>
-    <string name="send_message_to_phone">Send Message to Phone</string>
+    <string name="record_fall">Record fall</string>
+    <string name="record_not_fall">Record not fall</string>
 </resources>

@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
     private var messageEvent: MessageEvent? = null
     private var wearableNodeUri: String? = null
 
-    private var urlString = "http://192.168.43.176:5000/collection"
+    private var urlString = "https://httpbin.org/post"
 
     private lateinit var binding: ActivityMainBinding
 
@@ -282,11 +282,14 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
     @SuppressLint("SetTextI18n", "HardwareIds")
     override fun onMessageReceived(p0: MessageEvent) {
         try {
+            val size = 6
             val buffer = ByteBuffer.wrap(p0.data)
-            var floatArray: FloatArray = FloatArray(3)
-            for (i in 0..2){
-                floatArray[i] = buffer.getFloat(i*4)
+            var floatArray: FloatArray = FloatArray(size)
+            for (i in 0..size-1){
+                floatArray[i] = buffer.getFloat()
+                Log.d("debug float " + i.toString(), floatArray[i].toString())
             }
+            buffer.clear()
 
             val map = mapOf("id" to Secure.getString(contentResolver, Secure.ANDROID_ID),"content" to floatArray, )
             val sendObject = JSONObject(map)

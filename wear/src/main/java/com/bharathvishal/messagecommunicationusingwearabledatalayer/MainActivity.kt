@@ -180,6 +180,8 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
             }
         }
         recording = false
+        findViewById<Button>(R.id.recordFallButton).text = "RecordFall"
+        findViewById<Button>(R.id.recordNotFallButton).text = "RecordNotFall"
     }
 
     override fun onDataChanged(p0: DataEventBuffer) {

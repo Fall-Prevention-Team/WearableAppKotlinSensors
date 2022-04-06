@@ -5,12 +5,14 @@ import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.os.AsyncTask
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings.Secure
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -28,6 +30,7 @@ import java.net.URL
 import java.nio.ByteBuffer
 import java.nio.charset.StandardCharsets
 import java.util.*
+import javax.net.ssl.HttpsURLConnection
 
 class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
     DataClient.OnDataChangedListener,
@@ -275,6 +278,27 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
         return resBool
     }
 
+    private fun doPost(sendObject: JSONObject){
+        val stringRequest = JsonObjectRequest(urlString, sendObject, { response ->
+            Log.d("response", response.toString())
+        }, { error ->
+            Log.d("post error", error.toString())
+        })
+
+        // Instantiate the cache
+        val cache = DiskBasedCache(cacheDir, 1024 * 1024)// 1MB cap
+        cache.clear()
+// Set up the network to use HttpURLConnection as the HTTP client.
+        val network = BasicNetwork(HurlStack())
+
+// Instantiate the RequestQueue with the cache and network. Start the queue.
+        val requestQueue = RequestQueue(cache, network).apply {
+            start()
+        }
+
+        requestQueue.add(stringRequest)
+    }
+
 
     override fun onDataChanged(p0: DataEventBuffer) {
     }
@@ -293,28 +317,10 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
 
             val map = mapOf("id" to Secure.getString(contentResolver, Secure.ANDROID_ID),"content" to floatArray, )
             val sendObject = JSONObject(map)
+            doPost(sendObject)
             //val task = MyAsyncTask(this)
 //            val debugString = sendObject.toString()
 //            Log.d("JSON as string", debugString)
-            val stringRequest = JsonObjectRequest(urlString, sendObject, { response ->
-                Log.d("response", response.toString())
-            }, { error ->
-                Log.d("post error", error.toString())
-            })
-
-            // Instantiate the cache
-            val cache = DiskBasedCache(cacheDir, 1024 * 1024) // 1MB cap
-
-// Set up the network to use HttpURLConnection as the HTTP client.
-            val network = BasicNetwork(HurlStack())
-
-// Instantiate the RequestQueue with the cache and network. Start the queue.
-            val requestQueue = RequestQueue(cache, network).apply {
-                start()
-            }
-
-            requestQueue.add(stringRequest)
-
             //task.execute(sendObject.toString().toByteArray())
 
             val s = floatArray.contentToString()
@@ -386,99 +392,4 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
             e.printStackTrace()
         }
     }
-
-    companion object {
-        class MyAsyncTask internal constructor(context: MainActivity) : AsyncTask<ByteArray, String, String?>() {
-            private val activityReference: WeakReference<MainActivity> = WeakReference(context)
-            private var resp: String? = null
-            private var urlString = "https://httpbin.org/post"
-
-            override fun onPreExecute() {
-            }
-
-            override fun doInBackground(vararg params: ByteArray): String? {
-                //publishProgress("Sleeping Started") // Calls onProgressUpdate()
-                try {
-                    httpPost(params[0])
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
-                    resp = e.message
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    resp = e.message
-                }
-
-                return resp
-            }
-
-            override fun onPostExecute(result: String?) {
-
-                val activity = activityReference.get()
-                if (activity == null || activity.isFinishing) return
-                Toast.makeText(activity, "We send some shit", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onProgressUpdate(vararg text: String?) {
-
-                val activity = activityReference.get()
-                if (activity == null || activity.isFinishing) return
-                Toast.makeText(activity, text.firstOrNull(), Toast.LENGTH_SHORT).show()
-            }
-
-            private fun httpPost(data: ByteArray) {
-                try {
-                    val url: URL = URL(urlString)
-                    val urlConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
-                    Log.d("URLConnection", "hello")
-                    try {
-                        urlConnection.doOutput = true;
-                        urlConnection.requestMethod = "POST";
-                        urlConnection.setRequestProperty("Content-Type", "application/json; utf-8")
-                        urlConnection.setRequestProperty("Accept", "application/json");
-                        urlConnection.readTimeout = 7000;
-                        urlConnection.connectTimeout = 7000;
-
-                        val os = urlConnection.outputStream
-                        Log.d("Written data", urlConnection.content.toString())
-                        os.write(data);
-                        os.flush();
-                        os.close();
-
-                        //Log.d("this was send", data.decodeToString())
-
-                        val responseCode = urlConnection.getResponseCode();
-
-                        if (responseCode == 200) {
-                            val inputstream: InputStream =
-                                BufferedInputStream(urlConnection.inputStream);
-                            return readStream(inputstream);
-                        }
-
-                    } catch (e: IOException) {
-                        e.printStackTrace();
-                    } finally {
-                        urlConnection.disconnect();
-                    }
-                } catch (e: MalformedURLException) {
-                    e.printStackTrace();
-                }
-            }
-
-            fun readStream(inputstream: InputStream) {
-                val br = BufferedReader(InputStreamReader(inputstream));
-                val sb = StringBuilder();
-                var line: String? = null;
-                line = br.readLine()
-                while (line != null) {
-                    sb.append(line + "\n");
-                    line = br.readLine()
-                }
-                System.out.println(sb.toString());
-                Log.d("recieved answer", sb.toString())
-                br.close();
-            }
-        }
-    }
-
-
 }

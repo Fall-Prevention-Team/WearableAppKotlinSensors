@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
     }
 
     override fun onSensorChanged(p0: SensorEvent?) {
-        if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER)){
+        if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER) && (recording == true)){
             storeData(p0)
         }
     }

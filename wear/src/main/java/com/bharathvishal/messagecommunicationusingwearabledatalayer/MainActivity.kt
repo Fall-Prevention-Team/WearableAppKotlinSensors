@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
     SensorEventListener {
     var myAccelerometer : Sensor ?= null
     var mySensorManager : SensorManager ?= null
-
+    var textviewCounter : Int = 0
     private var activityContext: Context? = null
 
     private lateinit var binding: ActivityMainBinding
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
     private var sendableData: ByteArray = ByteArray(MAX_COUNT * 4)
     private var count = 0
     private var timeout = 0;
-
+    private var fall : String ?= null
     private var recording : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         // Enables Always-on
         ambientController = AmbientModeSupport.attach(this)
 
-        var fall : Boolean = false
+
 
         //On click listener for sendmessage button
         binding.recordFallButton.setOnClickListener {
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                     if (recording == false) {
                         recording = true
                         binding.recordFallButton.text = "Recording fall... "
-                        fall = true
+
                     }
                 }
             }
@@ -89,7 +89,10 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                     if (recording == false) {
                         recording = true
                         binding.recordFallButton.text = "Recording not fall... "
-                        fall = false
+
+                    }else if(recording == true){
+                        binding.recordNotFallButton.text = "Record not fall "
+                        recording = false
                     }
                 }
             }
@@ -101,10 +104,33 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         var returnValue:ByteArray = ByteBuffer.allocate(4).putFloat(value).array()
         return returnValue
     }
+    var textBuffer = arrayOf(" ", " ", " ")
 
+
+    @SuppressLint("SetTextI18n")
     override fun onSensorChanged(p0: SensorEvent?) {
-        if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER) && (recording == true)){
+        if (textviewCounter == 3){
+            textviewCounter = 0
+        }
+        if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER) && (recording == true)) {
+            val i = textviewCounter
             storeData(p0)
+            if (textviewCounter == 0) {
+                textBuffer[i] = "Accelerometer: " + p0.values[0].toString() + ", " + p0.values[1].toString() + ", " + p0.values[2].toString()
+                textviewCounter++
+            }else{
+                textviewCounter++
+                textBuffer[i] = "Accelerometer: " + p0.values[0].toString() + ", " + p0.values[1].toString() + ", " + p0.values[2].toString()
+            }
+            if (textviewCounter == 0) {
+                binding.sensordatatexttop.text = textBuffer[0]
+            }
+            if (textviewCounter == 1) {
+                binding.sensordatatextmid.text = textBuffer[1]
+            }
+            if (textviewCounter  == 2) {
+                binding.sensordatatextbot.text = textBuffer[2]
+            }
         }
     }
 
@@ -138,6 +164,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun sendData(data:ByteArray){
         if (mobileDeviceConnected) {
             val debugString = String(data)
@@ -155,22 +182,15 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                     Wearable.getMessageClient(activityContext!!)
                         .sendMessage(nodeId, MESSAGE_ITEM_RECEIVED_PATH, payload)
 
-                binding.deviceconnectionStatusTv.visibility = View.GONE
-
                 sendMessageTask.addOnCompleteListener {
                     if (it.isSuccessful) {
                         Log.d("send1", "Message sent successfully")
                         val sbTemp = StringBuilder()
                         sbTemp.append("\n")
-                        sbTemp.append(binding.messagecontentEditText.text.toString())
+
                         sbTemp.append(" (Sent to mobile)")
                         Log.d("receive1", " $sbTemp")
-                        binding.messagelogTextView.append(sbTemp)
 
-                        binding.scrollviewTextMessageLog.requestFocus()
-                        binding.scrollviewTextMessageLog.post {
-                            binding.scrollviewTextMessageLog.fullScroll(ScrollView.FOCUS_DOWN)
-                        }
                     } else {
                         Log.d("send1", "Message failed.")
                     }
@@ -184,9 +204,9 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
             }
         }
         recording = false
-        findViewById<Button>(R.id.recordFallButton).text = "RecordFall"
-        findViewById<Button>(R.id.recordNotFallButton).text = "RecordNotFall"
+        binding.recordFallButton.text = "Record fall"
     }
+
 
     override fun onDataChanged(p0: DataEventBuffer) {
     }
@@ -241,19 +261,19 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                     sendMessageTask.addOnCompleteListener {
                         if (it.isSuccessful) {
                             Log.d(TAG_MESSAGE_RECEIVED, "Message sent successfully")
-                            binding.messagelogTextView.visibility = View.VISIBLE
+
 
                             val sbTemp = StringBuilder()
                             sbTemp.append("\nMobile device connected.")
                             Log.d("receive1", " $sbTemp")
-                            binding.messagelogTextView.append(sbTemp)
+
 
                             mobileDeviceConnected = true
 
-                            binding.textInputLayout.visibility = View.VISIBLE
+
                             binding.recordFallButton.visibility = View.VISIBLE
-                            binding.deviceconnectionStatusTv.visibility = View.VISIBLE
-                            binding.deviceconnectionStatusTv.text = "Mobile device is connected"
+
+
                         } else {
                             Log.d(TAG_MESSAGE_RECEIVED, "Message failed.")
                         }
@@ -268,23 +288,11 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
             }//emd of if
             else if (messageEventPath.isNotEmpty() && messageEventPath == MESSAGE_ITEM_RECEIVED_PATH) {
                 try {
-                    binding.messagelogTextView.visibility = View.VISIBLE
-                    binding.textInputLayout.visibility = View.VISIBLE
-                    binding.recordFallButton.visibility = View.VISIBLE
-                    binding.deviceconnectionStatusTv.visibility = View.GONE
-
                     val sbTemp = StringBuilder()
                     sbTemp.append("\n")
                     sbTemp.append(s1)
                     sbTemp.append(" - (Received from mobile)")
                     Log.d("receive1", " $sbTemp")
-                    binding.messagelogTextView.append(sbTemp)
-
-
-                    binding.scrollviewTextMessageLog.requestFocus()
-                    binding.scrollviewTextMessageLog.post {
-                        binding.scrollviewTextMessageLog.fullScroll(ScrollView.FOCUS_DOWN)
-                    }
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

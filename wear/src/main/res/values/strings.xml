@@ -13,4 +13,5 @@
     <string name="init">...</string>
     <string name="record_fall">Record fall</string>
     <string name="record_not_fall">Record not fall</string>
+    <string name="sensorDataString">Sensor output</string>
 </resources>

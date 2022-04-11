@@ -321,20 +321,24 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
     @SuppressLint("SetTextI18n", "HardwareIds")
     override fun onMessageReceived(p0: MessageEvent) {
         try {
-            val size = 61
+            val size = 60
             val buffer = ByteBuffer.wrap(p0.data)
             var floatArray: FloatArray = FloatArray(size)
+            var fallTag = buffer.getFloat()
             for (i in 0..size-1){
                 floatArray[i] = buffer.getFloat()
                 Log.d("debug float " + i.toString(), floatArray[i].toString())
             }
             buffer.clear()
 
+
             val map = mapOf("id" to Secure.getString(contentResolver, Secure.ANDROID_ID),"content" to floatArray, )
             val sendObject = JSONObject(map)
-            if (floatArray[0].toInt() == 1){
+            if (fallTag == 1.0.toFloat()){
+                Log.d("fallTag", fallTag.toString())
                 sendObject.put("class", 2)
             }else{
+                Log.d("fallTagNotFall", fallTag.toString())
                 sendObject.put("class", 1)
             }
             doPost(sendObject)

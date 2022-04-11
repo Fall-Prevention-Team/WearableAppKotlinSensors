@@ -318,7 +318,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
     @SuppressLint("SetTextI18n", "HardwareIds")
     override fun onMessageReceived(p0: MessageEvent) {
         try {
-            val size = 60
+            val size = 61
             val buffer = ByteBuffer.wrap(p0.data)
             var floatArray: FloatArray = FloatArray(size)
             for (i in 0..size-1){
@@ -329,6 +329,11 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
 
             val map = mapOf("id" to Secure.getString(contentResolver, Secure.ANDROID_ID),"content" to floatArray, )
             val sendObject = JSONObject(map)
+            if (floatArray[0].toInt() == 1){
+                sendObject.put("class", 2)
+            }else{
+                sendObject.put("class", 1)
+            }
             doPost(sendObject)
             //val task = MyAsyncTask(this)
 //            val debugString = sendObject.toString()

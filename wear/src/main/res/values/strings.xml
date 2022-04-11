@@ -16,4 +16,5 @@
     <string name="sensorDataString">Sensor output</string>
     <string name="manualFallDetection">Manual Detection</string>
     <string name="setmode">Mode</string>
+    <string name="mode">Mode:</string>
 </resources>

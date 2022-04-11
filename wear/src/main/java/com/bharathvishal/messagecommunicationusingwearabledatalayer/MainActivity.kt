@@ -62,14 +62,15 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         val view = binding.root
         setContentView(view)
 
-        mySensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        mySensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         myAccelerometer = mySensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
         activityContext = this
 
         // Enables Always-on
         ambientController = AmbientModeSupport.attach(this)
-
+        binding.manualFallDetection.isActivated = false
+        binding.manualFallDetection.visibility = View.INVISIBLE
 
 
         //On click listener for sendmessage button

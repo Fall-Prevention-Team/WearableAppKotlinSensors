@@ -79,12 +79,15 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
         }
         binding.Bin.setOnClickListener {
             urlString = httpBinURL
+            binding.ModeTextField.text = "HttpBin mode"
         }
         binding.Predict.setOnClickListener {
             urlString = predictURL
+            binding.ModeTextField.text = "Prediction mode"
         }
         binding.Record.setOnClickListener {
             urlString = collectionURL
+            binding.ModeTextField.text = "Data collection mode"
         }
 
 

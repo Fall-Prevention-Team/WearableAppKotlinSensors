@@ -12,4 +12,5 @@
     <string name="Record">Record</string>
     <string name="Predict">Predict</string>
     <string name="Bin">Bin</string>
+    <string name="ActiveMode">Mode</string>
 </resources>

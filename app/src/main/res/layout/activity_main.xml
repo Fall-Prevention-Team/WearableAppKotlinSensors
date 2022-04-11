@@ -57,6 +57,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/ModeTextField"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/ActiveMode"
+                    android:textSize="50dp">
+
+                </TextView>
                 <ScrollView
                     android:id="@+id/scrollviewText"
                     android:layout_width="match_parent"

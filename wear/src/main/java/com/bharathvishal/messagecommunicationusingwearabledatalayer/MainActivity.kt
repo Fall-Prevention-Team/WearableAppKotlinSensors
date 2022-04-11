@@ -76,27 +76,29 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         //On click listener for sendmessage button
         binding.recordFallButton.setOnClickListener {
             if (mobileDeviceConnected) {
-                if (sendableData.isNotEmpty()) {
-                    if (recording == false) {
-                        recordingFall = true
-                        recording = true
-                        binding.recordFallButton.text = "Recording fall... "
+                if (recording == false) {
+                    timeout = 0
+                    count = 0
+                    recordingFall = true
+                    recording = true
+                    binding.recordFallButton.text = "Recording fall... "
 
-                    }
                 }
             }
         }
         binding.recordNotFallButton.setOnClickListener {
             if (mobileDeviceConnected) {
-                if (sendableData.isNotEmpty()) {
-                    if (recording == false) {
-                        recording = true
-                        binding.recordNotFallButton.text = "Recording not fall... "
+                if (recording == false) {
+                    timeout = 0
+                    count = 0
+                    recording = true
+                    binding.recordNotFallButton.text = "Recording not fall... "
 
-                    }else if(recording == true){
-                        binding.recordNotFallButton.text = "Record not fall "
-                        recording = false
-                    }
+                }else if(recording == true){
+                    timeout = 0
+                    count = 0
+                    binding.recordNotFallButton.text = "Record not fall "
+                    recording = false
                 }
             }
         }

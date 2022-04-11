@@ -106,16 +106,8 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         binding.manualFallDetection.setOnClickListener {
             if (mobileDeviceConnected) {
                 if (recording == true) {
-                    timeout = 0
-                    count = 1
-                    recording = true
-                    binding.recordNotFallButton.text = "Recording not fall... "
-
-                }else if(recording == true){
-                    timeout = 0
-                    count = 1
-                    binding.recordNotFallButton.text = "Record not fall "
-                    recording = false
+                    sendableData[0] = 1.0.toString().toByte()
+                    sendData(sendableData)
                 }
             }
         }

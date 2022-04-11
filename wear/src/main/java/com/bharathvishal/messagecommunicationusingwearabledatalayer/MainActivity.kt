@@ -92,13 +92,11 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                     count = 1
                     recording = true
                     binding.recordNotFallButton.text = "Recording not fall... "
-                    binding.manualFallDetection.visibility = View.VISIBLE
 
                 }else if(recording){
                     timeout = 0
                     count = 1
                     binding.recordNotFallButton.text = "Record not fall "
-                    binding.manualFallDetection.visibility = View.INVISIBLE
                     sendData(sendableData)
 
                 }

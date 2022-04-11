@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
 
     private lateinit var ambientController: AmbientModeSupport.AmbientController
 
-    private val MAX_COUNT = 6
+    private val MAX_COUNT = 60
     private var sendableData: ByteArray = ByteArray(MAX_COUNT * 4)
     private var count = 0
     private var timeout = 0;
@@ -154,11 +154,6 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                 Log.d("sendable data size", sendableData.size.toString())
                 sendData(sendableData)
                 var buffer = ByteBuffer.wrap(sendableData)
-                var debug: FloatArray = FloatArray(6)
-                for (i in 0..5){
-                    debug[i] = buffer.getFloat()
-                    Log.d("debug float " + i.toString(), debug[i].toString())
-                }
                 buffer.clear()
                 count = 0
             }

@@ -14,7 +14,7 @@
     <string name="record_fall">Record fall</string>
     <string name="record_not_fall">Record not fall</string>
     <string name="sensorDataString">Sensor output</string>
-    <string name="manualFallDetection">Manual Detection</string>
+    <string name="manualFallDetection">Manual Detect</string>
     <string name="setmode">Mode</string>
     <string name="mode">Mode:</string>
 </resources>

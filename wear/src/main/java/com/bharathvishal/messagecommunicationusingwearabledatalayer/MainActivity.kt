@@ -92,7 +92,6 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                     if (recording == false) {
                         recording = true
                         binding.recordNotFallButton.text = "Recording not fall... "
-
                     }else if(recording == true){
                         binding.recordNotFallButton.text = "Record not fall "
                         recording = false
@@ -101,6 +100,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
             }
         }
     }
+
 
 
     private fun floatToByteArray (value: Float): ByteArray {

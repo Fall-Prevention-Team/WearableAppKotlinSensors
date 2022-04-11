@@ -394,8 +394,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
     override fun onCapabilityChanged(p0: CapabilityInfo) {
     }
 
-
-    override fun onPause() {
+    override fun onStop() {
+        super.onStop()
         super.onPause()
         try {
             Wearable.getDataClient(activityContext!!).removeListener(this)
@@ -404,6 +404,10 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+    override fun onPause() {
+        super.onPause()
+
     }
 
 

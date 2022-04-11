@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
     private var timeout = 0;
     private var fall : String ?= null
     private var recording : Boolean = false
+    private var recordingFall : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +77,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
             if (mobileDeviceConnected) {
                 if (sendableData.isNotEmpty()) {
                     if (recording == false) {
+                        recordingFall = true
                         recording = true
                         binding.recordFallButton.text = "Recording fall... "
 
@@ -203,9 +205,11 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                 ).show()
             }
         }
-        binding.recordFallButton.text = "Record fall"
-        binding.recordNotFallButton.text = "Record not fall"
-        recording = false
+        if (recordingFall ==true ){
+            recordingFall = false
+            recording = false
+            binding.recordFallButton.text = "Record fall"
+        }
     }
 
 

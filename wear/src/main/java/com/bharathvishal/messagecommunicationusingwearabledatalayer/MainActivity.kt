@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                 if (sendableData.isNotEmpty()) {
                     if (recording == false) {
                         recording = true
-                        binding.recordFallButton.text = "Recording not fall... "
+                        binding.recordNotFallButton.text = "Recording not fall... "
 
                     }else if(recording == true){
                         binding.recordNotFallButton.text = "Record not fall "
@@ -203,8 +203,9 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                 ).show()
             }
         }
-        recording = false
         binding.recordFallButton.text = "Record fall"
+        binding.recordNotFallButton.text = "Record not fall"
+        recording = false
     }
 
 

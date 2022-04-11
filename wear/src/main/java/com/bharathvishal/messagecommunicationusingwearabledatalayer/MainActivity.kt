@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
 
     private val MAX_COUNT = 61
     private var sendableData: ByteArray = ByteArray(MAX_COUNT * 4)
-    private var count = 0
+    private var count = 1
     private var timeout = 0;
     private var fall : String ?= null
     private var recording : Boolean = false
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
             if (mobileDeviceConnected) {
                 if (recording == false) {
                     timeout = 0
-                    count = 0
+                    count = 1
                     recordingFall = true
                     recording = true
                     binding.recordFallButton.text = "Recording fall... "
@@ -91,13 +91,13 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
             if (mobileDeviceConnected) {
                 if (recording == false) {
                     timeout = 0
-                    count = 0
+                    count = 1
                     recording = true
                     binding.recordNotFallButton.text = "Recording not fall... "
 
                 }else if(recording == true){
                     timeout = 0
-                    count = 0
+                    count = 1
                     binding.recordNotFallButton.text = "Record not fall "
                     recording = false
                 }
@@ -107,13 +107,13 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
             if (mobileDeviceConnected) {
                 if (recording == true) {
                     timeout = 0
-                    count = 0
+                    count = 1
                     recording = true
                     binding.recordNotFallButton.text = "Recording not fall... "
 
                 }else if(recording == true){
                     timeout = 0
-                    count = 0
+                    count = 1
                     binding.recordNotFallButton.text = "Record not fall "
                     recording = false
                 }
@@ -177,7 +177,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                 sendData(sendableData)
                 var buffer = ByteBuffer.wrap(sendableData)
                 buffer.clear()
-                count = 0
+                count = 1
             }
             timeout = 0
         }

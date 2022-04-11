@@ -122,7 +122,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/setmode"
+                android:text="@string/Record"
                 >
             </Button><Button
             android:id="@+id/Predict"

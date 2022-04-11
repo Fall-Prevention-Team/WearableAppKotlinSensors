@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
     private val APP_OPEN_WEARABLE_PAYLOAD_PATH = "/APP_OPEN_WEARABLE_PAYLOAD"
 
     private val MESSAGE_ITEM_RECEIVED_PATH: String = "/message-item-received"
-
     private val TAG_GET_NODES: String = "getnodes1"
     private val TAG_MESSAGE_RECEIVED: String = "receive1"
 

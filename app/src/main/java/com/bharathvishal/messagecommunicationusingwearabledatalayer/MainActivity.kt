@@ -328,7 +328,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
             for (i in 0..size-1){
                 floatArray[i] = buffer.getFloat()
                 Log.d("debug float " + i.toString(), floatArray[i].toString())
+
             }
+            Log.d("floatArray size ", floatArray.size.toString())
             buffer.clear()
 
 

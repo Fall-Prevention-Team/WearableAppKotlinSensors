@@ -75,7 +75,8 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         //On click listener for sendmessage button
         binding.recordFallButton.setOnClickListener {
             if (mobileDeviceConnected) {
-                if (recordingFall == false) {
+                if (!recording) {
+                    Log.d("REcórd fall", "Recording fall button")
                     timeout = 0
                     count = 1
                     recordingFall = true

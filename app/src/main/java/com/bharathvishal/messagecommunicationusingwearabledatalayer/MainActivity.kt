@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
     private var messageEvent: MessageEvent? = null
     private var wearableNodeUri: String? = null
 
+    private var uniqueUUID : String? = null
 
     private var urlString : String? = null
     private  var httpBinURL = "https://httpbin.org/post"
@@ -65,6 +66,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        uniqueUUID = UUID.randomUUID().toString()
 
         activityContext = this
         wearableDeviceConnected = false
@@ -334,7 +336,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
             buffer.clear()
 
 
-            val map = mapOf("id" to Secure.getString(contentResolver, Secure.ANDROID_ID),"content" to floatArray, )
+            val map = mapOf("id" to uniqueUUID,"content" to floatArray, )
             val sendObject = JSONObject(map)
             if (fallTag == 1.0.toFloat()){
                 Log.d("fallTag", fallTag.toString())

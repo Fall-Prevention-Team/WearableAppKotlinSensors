@@ -117,8 +117,29 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
-
-
+            <Button
+                android:id="@+id/Record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/setmode"
+                >
+            </Button><Button
+            android:id="@+id/Predict"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/Predict"
+            >
+        </Button>
+            <Button
+                android:id="@+id/Bin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/Bin"
+                >
+            </Button>
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

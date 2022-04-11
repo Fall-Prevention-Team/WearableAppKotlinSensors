@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setmode">Mode</string>
+    <string name="Predict">Predict</string>
+    <string name="Bin">Bin</string>
+</resources>

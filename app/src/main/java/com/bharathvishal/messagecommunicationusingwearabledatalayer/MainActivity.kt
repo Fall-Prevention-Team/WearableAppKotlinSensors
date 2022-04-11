@@ -52,7 +52,11 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
     private var messageEvent: MessageEvent? = null
     private var wearableNodeUri: String? = null
 
-    private var urlString = "https://httpbin.org/post"
+
+    private var urlString : String? = null
+    private  var httpBinURL = "https://httpbin.org/post"
+    private  var collectionURL = "http://172.28.198.13:5000/collection"
+   private   var  predictURL = "http://172.28.198.13:5000/prediction"
 
     private lateinit var binding: ActivityMainBinding
 
@@ -73,6 +77,15 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
                 //Couroutine
                 initialiseDevicePairing(tempAct)
             }
+        }
+        binding.Bin.setOnClickListener {
+            urlString = httpBinURL
+        }
+        binding.Predict.setOnClickListener {
+            urlString = predictURL
+        }
+        binding.Record.setOnClickListener {
+            urlString = collectionURL
         }
 
 

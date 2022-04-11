@@ -128,11 +128,7 @@
                     </LinearLayout>
 
                 </LinearLayout>
-                <TextView
-                    android:text="@string/mode"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    ></TextView>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -142,13 +138,18 @@
                         android:layout_width="90dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="70dp"
                         android:text="@string/manualFallDetection"
                         android:textSize="10.5sp"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="70dp"
-                        >
-                    </Button>
+                        android:textStyle="bold"></Button>
                 </LinearLayout>
+
+                <TextView
+                    android:text="@string/mode"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    ></TextView>
+
             </LinearLayout>
 
         </RelativeLayout>

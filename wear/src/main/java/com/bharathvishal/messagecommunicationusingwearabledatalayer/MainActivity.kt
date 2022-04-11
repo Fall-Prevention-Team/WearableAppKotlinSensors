@@ -97,8 +97,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                     timeout = 0
                     count = 1
                     binding.recordNotFallButton.text = "Record not fall "
-                    sendData(sendableData)
-
+                    recording = false
                 }
             }
         }

@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
 
     private lateinit var ambientController: AmbientModeSupport.AmbientController
 
-    private val MAX_COUNT = 60
+    private val MAX_COUNT = 61
     private var sendableData: ByteArray = ByteArray(MAX_COUNT * 4)
     private var count = 0
     private var timeout = 0;
@@ -82,6 +82,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                     recordingFall = true
                     recording = true
                     binding.recordFallButton.text = "Recording fall... "
+                    sendableData[0] = 1.0.toString().toByte()
 
                 }
             }

@@ -145,7 +145,6 @@
                         android:text="@string/manualFallDetection"
                         android:textSize="10.5sp"
                         android:textStyle="bold"
-                        android:visibility="visible"
                         android:layout_marginLeft="70dp"
                         >
                     </Button>

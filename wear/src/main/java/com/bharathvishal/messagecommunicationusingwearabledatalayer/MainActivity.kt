@@ -69,8 +69,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
 
         // Enables Always-on
         ambientController = AmbientModeSupport.attach(this)
-        binding.manualFallDetection.isActivated = false
-        binding.manualFallDetection.visibility = View.INVISIBLE
+
 
 
         //On click listener for sendmessage button
@@ -83,23 +82,25 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                     recording = true
                     binding.recordFallButton.text = "Recording fall... "
                     sendableData[0] = 1.0.toString().toByte()
-
                 }
             }
         }
         binding.recordNotFallButton.setOnClickListener {
             if (mobileDeviceConnected) {
-                if (recording == false) {
+                if (!recording) {
                     timeout = 0
                     count = 1
                     recording = true
                     binding.recordNotFallButton.text = "Recording not fall... "
+                    binding.manualFallDetection.visibility = View.VISIBLE
 
-                }else if(recording == true){
+                }else if(recording){
                     timeout = 0
                     count = 1
                     binding.recordNotFallButton.text = "Record not fall "
-                    recording = false
+                    binding.manualFallDetection.visibility = View.INVISIBLE
+                    sendData(sendableData)
+
                 }
             }
         }
@@ -128,7 +129,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         if (textviewCounter == 3){
             textviewCounter = 0
         }
-        if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER) && (recording == true)) {
+        if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER) && (recording == true) ) {
             val i = textviewCounter
             storeData(p0)
             if (textviewCounter == 0) {

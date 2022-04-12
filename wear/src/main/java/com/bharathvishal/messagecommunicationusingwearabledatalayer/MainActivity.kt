@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
     private var count = 1
     private var timeout = 0;
     private var fall : String ?= null
-    private var recording : Boolean = false
+    private var recordingNotFall : Boolean = false
     private var recordingFall : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,12 +75,11 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         //On click listener for sendmessage button
         binding.recordFallButton.setOnClickListener {
             if (mobileDeviceConnected) {
-                if (!recording) {
+                if (!recordingFall) {
                     Log.d("REcórd fall", "Recording fall button")
                     timeout = 0
                     count = 1
                     recordingFall = true
-                    recording = true
                     binding.recordFallButton.text = "Recording fall... "
 
                     sendableData[0] = floatToByteArray(1.0f)[0]
@@ -92,23 +91,19 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         }
         binding.recordNotFallButton.setOnClickListener {
             if (mobileDeviceConnected) {
-                if (!recording) {
-                    timeout = 0
-                    count = 1
-                    recording = true
+                if (!recordingNotFall) {
+                    recordingNotFall = true
                     binding.recordNotFallButton.text = "Recording not fall... "
 
-                }else if(recording){
-                    timeout = 0
-                    count = 1
+                }else {
                     binding.recordNotFallButton.text = "Record not fall "
-                    recording = false
+                    recordingNotFall = false
                 }
             }
         }
         binding.manualFallDetection.setOnClickListener {
             if (mobileDeviceConnected) {
-                if (recording == true) {
+                if (!recordingFall) {
                     sendableData[0] = floatToByteArray(1.0f)[0]
                     sendableData[1] = floatToByteArray(1.0f)[1]
                     sendableData[2] = floatToByteArray(1.0f)[2]
@@ -134,7 +129,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         if (textviewCounter == 3){
             textviewCounter = 0
         }
-        if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER) && (recording == true) ) {
+        if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER) && (recordingFall || recordingNotFall) ) {
             val i = textviewCounter
             storeData(p0)
             if (textviewCounter == 0) {
@@ -220,11 +215,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                 ).show()
             }
         }
-        if (recordingFall ==true ){
-            recordingFall = false
-            recording = false
-            binding.recordFallButton.text = "Record fall"
-        }
+        recordingFall = false
     }
 
 

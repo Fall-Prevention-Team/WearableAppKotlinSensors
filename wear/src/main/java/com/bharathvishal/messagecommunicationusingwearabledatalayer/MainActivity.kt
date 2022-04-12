@@ -215,6 +215,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                 ).show()
             }
         }
+        binding.recordFallButton.text = "Record fall"
         recordingFall = false
     }
 

@@ -55,8 +55,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
 
     private var urlString : String? = null
     private  var httpBinURL = "https://httpbin.org/post"
-    private  var collectionURL = "http://172.28.198.13:5000/collection"
-   private   var  predictURL = "http://172.28.198.13:5000/prediction"
+    private  var collectionURL = "http://172.25.19.248:5000/collection"
+   private   var  predictURL = "http://172.25.19.248:5000/prediction"
 
     private lateinit var binding: ActivityMainBinding
 

@@ -158,9 +158,12 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
                 if (getNodesResBool!![0]) {
                     //if message Acknowlegement Received
                     if (getNodesResBool[1]) {
+                        for (i in getNodesResBool){
+                            Log.d("NodeResBool", i.toString())
+                        }
                         Toast.makeText(
                             activityContext,
-                            "Wearable device paired and app is open. Tap the \"Send Message to Wearable\" button to send the message to your wearable device.",
+                            "Wearable device paired and app is open.",
                             Toast.LENGTH_LONG
                         ).show()
                         binding.deviceconnectionStatusTv.text =
@@ -373,11 +376,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
                     binding.sendmessageButton.visibility = View.VISIBLE
 
                     val sbTemp = StringBuilder()
-                    sbTemp.append("\n")
-                    //sbTemp.append(s)
-                    sbTemp.append("(Received from wearable)")
+                    sbTemp.append("Received this from wearable: " + s)
 //                    Log.d("receive1", " $sbTemp")
-                    binding.messagelogTextView.append(sbTemp)
+                    binding.messagelogTextView.text = sbTemp
 
                     binding.scrollviewText.requestFocus()
                     binding.scrollviewText.post {

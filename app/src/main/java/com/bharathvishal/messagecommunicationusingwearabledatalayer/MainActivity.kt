@@ -396,7 +396,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
 
     override fun onStop() {
         super.onStop()
-        super.onPause()
         try {
             Wearable.getDataClient(activityContext!!).removeListener(this)
             Wearable.getMessageClient(activityContext!!).removeListener(this)

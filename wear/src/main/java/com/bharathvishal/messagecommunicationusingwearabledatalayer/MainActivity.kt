@@ -140,9 +140,9 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
     override fun onSensorChanged(p0: SensorEvent?) {
         if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER) && (recording || recordingFall) ) {
             storeData(p0)
-                binding.sensordatatexttop.text = textBuffer[0]
-                binding.sensordatatextmid.text = textBuffer[1]
-                binding.sensordatatextbot.text = textBuffer[2]
+            binding.sensordatatexttop.text = "Acceleromer x: " + p0.values[0]
+            binding.sensordatatextmid.text = "Acceleromer y: " + p0.values[1]
+            binding.sensordatatextbot.text = "Acceleromer z: " + p0.values[2]
         }
     }
 

@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.wear.ambient.AmbientModeSupport
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -32,7 +33,7 @@ import java.nio.charset.StandardCharsets
 import java.util.*
 import javax.net.ssl.HttpsURLConnection
 
-class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
+class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(), AmbientModeSupport.AmbientCallbackProvider,
     DataClient.OnDataChangedListener,
     MessageClient.OnMessageReceivedListener,
     CapabilityClient.OnCapabilityChangedListener {
@@ -409,9 +410,22 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
     }
     override fun onPause() {
         super.onPause()
-
     }
+    override fun getAmbientCallback(): AmbientModeSupport.AmbientCallback = MyAmbientCallback()
 
+    private inner class MyAmbientCallback : AmbientModeSupport.AmbientCallback() {
+        override fun onEnterAmbient(ambientDetails: Bundle) {
+            super.onEnterAmbient(ambientDetails)
+        }
+
+        override fun onUpdateAmbient() {
+            super.onUpdateAmbient()
+        }
+
+        override fun onExitAmbient() {
+            super.onExitAmbient()
+        }
+    }
 
     override fun onResume() {
         super.onResume()
@@ -424,4 +438,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
             e.printStackTrace()
         }
     }
+
+
+
 }

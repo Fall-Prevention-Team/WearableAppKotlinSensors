@@ -79,8 +79,6 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
             if (mobileDeviceConnected) {
                 if (!recordingFall) {
                     Log.d("REcórd fall", "Recording fall button")
-                    timeout = 0
-                    count = 1
                     recordingFall = true
                     binding.recordFallButton.text = "Recording fall... "
 
@@ -94,10 +92,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         binding.recordNotFallButton.setOnClickListener {
             if (mobileDeviceConnected) {
                 if (!recordingNotFall) {
-                    timeout = 0
-                    count = 1
                     recordingNotFall = true
-                    recording = true
                     binding.recordNotFallButton.text = "Recording not fall... "
                 }else if(recordingNotFall && !recordingFall){
                     timeout = 0
@@ -325,14 +320,6 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
 
     override fun onPause() {
         super.onPause()
-        onResume()
-       /* try {
-            Wearable.getDataClient(activityContext!!).removeListener(this)
-            Wearable.getMessageClient(activityContext!!).removeListener(this)
-            Wearable.getCapabilityClient(activityContext!!).removeListener(this)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }*/
     }
 
 

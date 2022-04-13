@@ -328,13 +328,14 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
 
     override fun onPause() {
         super.onPause()
-        try {
+        onResume()
+       /* try {
             Wearable.getDataClient(activityContext!!).removeListener(this)
             Wearable.getMessageClient(activityContext!!).removeListener(this)
             Wearable.getCapabilityClient(activityContext!!).removeListener(this)
         } catch (e: Exception) {
             e.printStackTrace()
-        }
+        }*/
     }
 
 

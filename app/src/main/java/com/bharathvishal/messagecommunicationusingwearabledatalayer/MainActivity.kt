@@ -12,11 +12,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-<<<<<<< HEAD
-import androidx.wear.ambient.AmbientModeSupport
-import androidx.wear.ambient.AmbientModeSupport.AmbientCallback
-=======
->>>>>>> parent of b4dd578 (added ambient support for handheld)
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -63,7 +58,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
     private  var collectionURL = "http://172.25.19.248:5000/collection"
    private   var  predictURL = "http://172.25.19.248:5000/prediction"
     private lateinit var binding: ActivityMainBinding
-    private lateinit var ambientController: AmbientModeSupport.AmbientController
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,8 +66,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
         val view = binding.root
         setContentView(view)
         uniqueUUID = UUID.randomUUID().toString()
-
-        ambientController = AmbientModeSupport.attach(this)
         activityContext = this
         wearableDeviceConnected = false
 

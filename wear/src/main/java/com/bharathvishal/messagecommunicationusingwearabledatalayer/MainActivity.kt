@@ -90,8 +90,14 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         }
         binding.recordNotFallButton.setOnClickListener {
             if (mobileDeviceConnected) {
-                if (!recordingNotFall) {
-                    recordingNotFall = true
+                if (!recording) {
+                    sendableData[0] = floatToByteArray(2.0f)[0]
+                    sendableData[1] = floatToByteArray(2.0f)[1]
+                    sendableData[2] = floatToByteArray(2.0f)[2]
+                    sendableData[3] = floatToByteArray(2.0f)[3]
+                    timeout = 0
+                    count = 1
+                    recordingFall = false
                     recording = true
                     binding.recordNotFallButton.text = "Recording not fall... "
                     sendableData[0] = floatToByteArray(2.0f)[0]
@@ -101,6 +107,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                 }
                 if(recordingNotFall && !recordingFall){
                     binding.recordNotFallButton.text = "Record not fall "
+                    recordingFall = false
                     recording = false
                     recordingNotFall = false
                 }
@@ -134,13 +141,13 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         if (textviewCounter == 3){
             textviewCounter = 0
         }
-        if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER) && (recording == true) ) {
+        if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER) && (recording || recordingFall) ) {
             val i = textviewCounter
             storeData(p0)
-            if (textviewCounter == 0) {
+            if (textviewCounter == 0 && recording) {
                 textBuffer[i] = "Accelerometer: " + p0.values[0].toString() + ", " + p0.values[1].toString() + ", " + p0.values[2].toString()
                 textviewCounter++
-            }else{
+            }else if (textviewCounter != 0 && recordingFall){
                 textviewCounter++
                 textBuffer[i] = "Accelerometer: " + p0.values[0].toString() + ", " + p0.values[1].toString() + ", " + p0.values[2].toString()
             }
@@ -226,6 +233,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         }
         binding.recordFallButton.text = "Record fall"
         recordingFall = false
+        recording = false
     }
 
 

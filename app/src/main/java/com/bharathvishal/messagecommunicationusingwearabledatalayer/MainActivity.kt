@@ -57,8 +57,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(), Ambient
 
     private var urlString : String? = null
     private  var httpBinURL = "https://httpbin.org/post"
-    private  var collectionURL = "http://172.25.19.248:5000/collection"
-   private   var  predictURL = "http://172.25.19.248:5000/prediction"
+    private  var collectionURL = "http://192.168.0.48:5000/collection"
+   private   var  predictURL = "http://192.168.0.48:5000/prediction"
+
     private lateinit var binding: ActivityMainBinding
     private lateinit var ambientController: AmbientModeSupport.AmbientController
 

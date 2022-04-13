@@ -191,6 +191,10 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                 // Set the data of the message to be the bytes of the Uri.
                 val payload: ByteArray = data
                 val debugString1 = String(data)
+                val idByte : ByteArray = byteArrayOf(sendableData[0], sendableData[1], sendableData[2], sendableData[3] )
+                val idBuffer = ByteBuffer.wrap(idByte)
+
+                Log.d("The Fall Identifier:", " FALL OR NOT FALL ID: " + idBuffer.getFloat().toString())
                 Log.d("payload", debugString1)
                 // Send the rpc
                 // Instantiates clients without member variables, as clients are inexpensive to

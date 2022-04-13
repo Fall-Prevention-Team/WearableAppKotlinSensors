@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.wear.ambient.AmbientModeSupport
+import androidx.wear.ambient.AmbientModeSupport.AmbientCallback
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -58,8 +59,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(), Ambient
     private  var httpBinURL = "https://httpbin.org/post"
     private  var collectionURL = "http://172.25.19.248:5000/collection"
    private   var  predictURL = "http://172.25.19.248:5000/prediction"
-
     private lateinit var binding: ActivityMainBinding
+    private lateinit var ambientController: AmbientModeSupport.AmbientController
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,9 +70,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(), Ambient
         setContentView(view)
         uniqueUUID = UUID.randomUUID().toString()
 
+        ambientController = AmbientModeSupport.attach(this)
         activityContext = this
         wearableDeviceConnected = false
-
 
         binding.checkwearablesButton.setOnClickListener {
             if (!wearableDeviceConnected) {

@@ -99,6 +99,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                     sendableData[3] = floatToByteArray(2.0f)[3]
                     timeout = 0
                     count = 1
+                    recordingFall = false
                     recording = true
                     binding.recordNotFallButton.text = "Recording not fall... "
 
@@ -106,6 +107,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                     timeout = 0
                     count = 1
                     binding.recordNotFallButton.text = "Record not fall "
+                    recordingFall = false
                     recording = false
                 }
             }
@@ -141,7 +143,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER) && (recording || recordingFall) ) {
             val i = textviewCounter
             storeData(p0)
-            if (textviewCounter == 0 && recordingFall) {
+            if (textviewCounter == 0 && recording) {
                 textBuffer[i] = "Accelerometer: " + p0.values[0].toString() + ", " + p0.values[1].toString() + ", " + p0.values[2].toString()
                 textviewCounter++
             }else if (textviewCounter != 0 && recordingFall){
@@ -226,6 +228,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         }
         binding.recordFallButton.text = "Record fall"
         recordingFall = false
+        recording = false
     }
 
 

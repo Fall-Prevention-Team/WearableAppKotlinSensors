@@ -83,7 +83,11 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                     count = 1
                     recordingFall = true
                     binding.recordFallButton.text = "Recording fall... "
-                    sendableData[0] = 1.0.toString().toByte()
+
+                    sendableData[0] = floatToByteArray(1.0f)[0]
+                    sendableData[1] = floatToByteArray(1.0f)[1]
+                    sendableData[2] = floatToByteArray(1.0f)[2]
+                    sendableData[3] = floatToByteArray(1.0f)[3]
                 }
             }
         }
@@ -106,10 +110,12 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         }
         binding.manualFallDetection.setOnClickListener {
             if (mobileDeviceConnected) {
-                if (recordingNotFall) {
-                    sendableData[0] = 1.0.toString().toByte()
+                if (recording == true) {
+                    sendableData[0] = floatToByteArray(1.0f)[0]
+                    sendableData[1] = floatToByteArray(1.0f)[1]
+                    sendableData[2] = floatToByteArray(1.0f)[2]
+                    sendableData[3] = floatToByteArray(1.0f)[3]
                     recordingFall = true
-                    recording = true
                 }
             }
         }
@@ -216,17 +222,8 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                 ).show()
             }
         }
-        if (recordingFall ==true ){
-            recordingFall = false
-            recording = false
-            binding.recordFallButton.text = "Record fall"
-        }
-        if (recordingNotFall){
-            recordingFall = false
-            recording = false
-            binding.recordNotFallButton.text = "Record fall"
-        }
-
+        binding.recordFallButton.text = "Record fall"
+        recordingFall = false
     }
 
 

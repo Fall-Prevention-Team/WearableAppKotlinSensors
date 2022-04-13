@@ -9,8 +9,8 @@
     <string name="init">...</string>
     <string name="check_for_connected_wearables">Check for connected wearables</string>
     <string name="send_message_alt">Send Message to Wearable</string>
-    <string name="Record">Record</string>
-    <string name="Predict">Predict</string>
-    <string name="Bin">Bin</string>
-    <string name="ActiveMode">Mode</string>
+    <string name="Record">Send to collection url</string>
+    <string name="Predict">Send to predict url</string>
+    <string name="Bin">Send to httpbin url</string>
+    <string name="ActiveMode">Url mode</string>
 </resources>

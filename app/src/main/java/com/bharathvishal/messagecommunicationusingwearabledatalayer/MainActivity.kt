@@ -51,11 +51,12 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
     private var messageEvent: MessageEvent? = null
     private var wearableNodeUri: String? = null
 
+    private var uniqueUUID : String? = null
 
     private var urlString : String? = null
     private  var httpBinURL = "https://httpbin.org/post"
-    private  var collectionURL = "http://172.28.198.13:5000/collection"
-   private   var  predictURL = "http://172.28.198.13:5000/prediction"
+    private  var collectionURL = "http://172.25.19.248:5000/collection"
+   private   var  predictURL = "http://172.25.19.248:5000/prediction"
 
     private lateinit var binding: ActivityMainBinding
 
@@ -65,6 +66,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        uniqueUUID = UUID.randomUUID().toString()
 
         activityContext = this
         wearableDeviceConnected = false
@@ -156,9 +158,12 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
                 if (getNodesResBool!![0]) {
                     //if message Acknowlegement Received
                     if (getNodesResBool[1]) {
+                        for (i in getNodesResBool){
+                            Log.d("NodeResBool", i.toString())
+                        }
                         Toast.makeText(
                             activityContext,
-                            "Wearable device paired and app is open. Tap the \"Send Message to Wearable\" button to send the message to your wearable device.",
+                            "Wearable device paired and app is open.",
                             Toast.LENGTH_LONG
                         ).show()
                         binding.deviceconnectionStatusTv.text =
@@ -334,7 +339,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
             buffer.clear()
 
 
-            val map = mapOf("id" to Secure.getString(contentResolver, Secure.ANDROID_ID),"content" to floatArray, )
+            val map = mapOf("id" to uniqueUUID,"content" to floatArray, )
             val sendObject = JSONObject(map)
             if (fallTag == 1.0.toFloat()){
                 Log.d("fallTag", fallTag.toString())
@@ -371,11 +376,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
                     binding.sendmessageButton.visibility = View.VISIBLE
 
                     val sbTemp = StringBuilder()
-                    sbTemp.append("\n")
-                    //sbTemp.append(s)
-                    sbTemp.append("(Received from wearable)")
+                    sbTemp.append("Received this from wearable: " + s)
 //                    Log.d("receive1", " $sbTemp")
-                    binding.messagelogTextView.append(sbTemp)
+                    binding.messagelogTextView.text = sbTemp
 
                     binding.scrollviewText.requestFocus()
                     binding.scrollviewText.post {

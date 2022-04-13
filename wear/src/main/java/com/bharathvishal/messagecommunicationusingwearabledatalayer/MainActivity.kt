@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
     var mySensorManager : SensorManager ?= null
     var textviewCounter : Int = 0
     private var activityContext: Context? = null
-
     private lateinit var binding: ActivityMainBinding
 
     private val TAG_MESSAGE_RECEIVED = "receive1"
@@ -55,7 +54,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
     private var fall : String ?= null
     private var recording : Boolean = false
     private var recordingFall : Boolean = false
-
+    private var recordingNotFall :Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -79,6 +78,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                     Log.d("REcórd fall", "Recording fall button")
                     timeout = 0
                     count = 1
+                    recordingNotFall = false
                     recordingFall = true
                     recording = true
                     binding.recordFallButton.text = "Recording fall... "
@@ -101,6 +101,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                     count = 1
                     recordingFall = false
                     recording = true
+                    recordingNotFall = true
                     binding.recordNotFallButton.text = "Recording not fall... "
 
                 }else if(recording){
@@ -137,28 +138,11 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
 
     @SuppressLint("SetTextI18n")
     override fun onSensorChanged(p0: SensorEvent?) {
-        if (textviewCounter == 3){
-            textviewCounter = 0
-        }
         if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER) && (recording || recordingFall) ) {
-            val i = textviewCounter
             storeData(p0)
-            if (textviewCounter == 0 && recording) {
-                textBuffer[i] = "Accelerometer: " + p0.values[0].toString() + ", " + p0.values[1].toString() + ", " + p0.values[2].toString()
-                textviewCounter++
-            }else if (textviewCounter != 0 && recordingFall){
-                textviewCounter++
-                textBuffer[i] = "Accelerometer: " + p0.values[0].toString() + ", " + p0.values[1].toString() + ", " + p0.values[2].toString()
-            }
-            if (textviewCounter == 0) {
                 binding.sensordatatexttop.text = textBuffer[0]
-            }
-            if (textviewCounter == 1) {
                 binding.sensordatatextmid.text = textBuffer[1]
-            }
-            if (textviewCounter  == 2) {
                 binding.sensordatatextbot.text = textBuffer[2]
-            }
         }
     }
 
@@ -226,9 +210,14 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                 ).show()
             }
         }
-        binding.recordFallButton.text = "Record fall"
-        recordingFall = false
-        recording = false
+        if (!recordingNotFall){
+            binding.recordFallButton.text = "Record fall"
+            recordingFall = false
+            recording = false
+        }else{
+            binding.recordFallButton.text = "Record fall"
+            recordingFall = false
+        }
     }
 
 

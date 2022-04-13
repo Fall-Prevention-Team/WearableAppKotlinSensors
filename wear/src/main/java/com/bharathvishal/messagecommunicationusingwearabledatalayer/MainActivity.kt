@@ -141,10 +141,10 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER) && (recording || recordingFall) ) {
             val i = textviewCounter
             storeData(p0)
-            if (textviewCounter == 0) {
+            if (textviewCounter == 0 && recordingFall) {
                 textBuffer[i] = "Accelerometer: " + p0.values[0].toString() + ", " + p0.values[1].toString() + ", " + p0.values[2].toString()
                 textviewCounter++
-            }else{
+            }else if (textviewCounter != 0 && recordingFall){
                 textviewCounter++
                 textBuffer[i] = "Accelerometer: " + p0.values[0].toString() + ", " + p0.values[1].toString() + ", " + p0.values[2].toString()
             }

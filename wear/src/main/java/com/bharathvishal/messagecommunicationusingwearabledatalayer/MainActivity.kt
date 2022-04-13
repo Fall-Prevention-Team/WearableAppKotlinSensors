@@ -78,7 +78,6 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         binding.recordFallButton.setOnClickListener {
             if (mobileDeviceConnected) {
                 if (!recordingFall) {
-                    Log.d("REcórd fall", "Recording fall button")
                     recordingFall = true
                     binding.recordFallButton.text = "Recording fall... "
                     recording = true
@@ -95,11 +94,12 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
                     recordingNotFall = true
                     recording = true
                     binding.recordNotFallButton.text = "Recording not fall... "
-                    sendableData[0] = floatToByteArray(1.0f)[0]
-                    sendableData[1] = floatToByteArray(1.0f)[1]
-                    sendableData[2] = floatToByteArray(1.0f)[2]
-                    sendableData[3] = floatToByteArray(1.0f)[3]
-                }else if(recordingNotFall && !recordingFall){
+                    sendableData[0] = floatToByteArray(2.0f)[0]
+                    sendableData[1] = floatToByteArray(2.0f)[1]
+                    sendableData[2] = floatToByteArray(2.0f)[2]
+                    sendableData[3] = floatToByteArray(2.0f)[3]
+                }
+                if(recordingNotFall && !recordingFall){
                     binding.recordNotFallButton.text = "Record not fall "
                     recording = false
                     recordingNotFall = false

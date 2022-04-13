@@ -140,6 +140,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
     }
 
 
+
     @SuppressLint("SetTextI18n")
     private fun initialiseDevicePairing(tempAct: Activity) {
         //Coroutine
@@ -409,6 +410,10 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        onRestart()
+    }
 
     override fun onResume() {
         super.onResume()

@@ -12,8 +12,11 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+<<<<<<< HEAD
 import androidx.wear.ambient.AmbientModeSupport
 import androidx.wear.ambient.AmbientModeSupport.AmbientCallback
+=======
+>>>>>>> parent of b4dd578 (added ambient support for handheld)
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -34,7 +37,7 @@ import java.nio.charset.StandardCharsets
 import java.util.*
 import javax.net.ssl.HttpsURLConnection
 
-class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(), AmbientModeSupport.AmbientCallbackProvider,
+class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
     DataClient.OnDataChangedListener,
     MessageClient.OnMessageReceivedListener,
     CapabilityClient.OnCapabilityChangedListener {
@@ -411,22 +414,9 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(), Ambient
     }
     override fun onPause() {
         super.onPause()
+
     }
-    override fun getAmbientCallback(): AmbientModeSupport.AmbientCallback = MyAmbientCallback()
 
-    private inner class MyAmbientCallback : AmbientModeSupport.AmbientCallback() {
-        override fun onEnterAmbient(ambientDetails: Bundle) {
-            super.onEnterAmbient(ambientDetails)
-        }
-
-        override fun onUpdateAmbient() {
-            super.onUpdateAmbient()
-        }
-
-        override fun onExitAmbient() {
-            super.onExitAmbient()
-        }
-    }
 
     override fun onResume() {
         super.onResume()
@@ -439,7 +429,4 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(), Ambient
             e.printStackTrace()
         }
     }
-
-
-
 }

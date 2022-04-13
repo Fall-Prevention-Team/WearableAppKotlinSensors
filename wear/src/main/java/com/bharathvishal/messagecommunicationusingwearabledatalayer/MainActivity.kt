@@ -93,6 +93,10 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         binding.recordNotFallButton.setOnClickListener {
             if (mobileDeviceConnected) {
                 if (!recording) {
+                    sendableData[0] = floatToByteArray(2.0f)[0]
+                    sendableData[1] = floatToByteArray(2.0f)[1]
+                    sendableData[2] = floatToByteArray(2.0f)[2]
+                    sendableData[3] = floatToByteArray(2.0f)[3]
                     timeout = 0
                     count = 1
                     recording = true
@@ -134,7 +138,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
         if (textviewCounter == 3){
             textviewCounter = 0
         }
-        if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER) && (recording == true) ) {
+        if ((p0 != null) && (p0.sensor.type == Sensor.TYPE_ACCELEROMETER) && (recording || recordingFall) ) {
             val i = textviewCounter
             storeData(p0)
             if (textviewCounter == 0) {

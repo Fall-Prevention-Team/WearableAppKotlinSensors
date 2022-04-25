@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
 
     private lateinit var ambientController: AmbientModeSupport.AmbientController
 
-    private val MAX_COUNT = 13
+    private val MAX_COUNT = 49
     private var sendableData: ByteArray = ByteArray(MAX_COUNT * 4)
     private var count = 1
     private var timeout = 0;
@@ -151,7 +151,7 @@ class MainActivity : AppCompatActivity(), AmbientModeSupport.AmbientCallbackProv
 
     private fun storeData(p0: SensorEvent){
         timeout += 1
-        if (timeout == 100){
+        if (timeout == 33){
             if (count < MAX_COUNT){
                 for (value in 0..p0.values.size-1){
                     Log.d("Sensor value " + value.toString(), p0.values[value].toString())

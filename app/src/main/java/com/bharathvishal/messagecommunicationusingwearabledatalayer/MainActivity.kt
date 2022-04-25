@@ -2,6 +2,8 @@ package com.bharathvishal.messagecommunicationusingwearabledatalayer
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.net.Uri
 import android.os.AsyncTask
@@ -40,7 +42,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
     private val wearableAppCheckPayload = "AppOpenWearable"
     private val wearableAppCheckPayloadReturnACK = "AppOpenWearableACK"
     private var wearableDeviceConnected: Boolean = false
-
     private var currentAckFromWearForAppOpenCheck: String? = null
     private val APP_OPEN_WEARABLE_PAYLOAD_PATH = "/APP_OPEN_WEARABLE_PAYLOAD"
 
@@ -50,13 +51,13 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
 
     private var messageEvent: MessageEvent? = null
     private var wearableNodeUri: String? = null
-
+    private var senderID:String?= null
     private var uniqueUUID : String? = null
 
     private var urlString : String? = null
     private  var httpBinURL = "https://httpbin.org/post"
-    private  var collectionURL = "http://192.168.0.48:5000/collection"
-   private   var  predictURL = "http://192.168.0.48:5000/prediction"
+    private  var collectionURL = "http://172.25.12.10:5000/collection"
+   private   var  predictURL = "http://172.25.12.10:5000/prediction"
 
     private lateinit var binding: ActivityMainBinding
 
@@ -339,8 +340,14 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
             Log.d("floatArray size ", floatArray.size.toString())
             buffer.clear()
 
+if (binding.stringIDField.text.isNotBlank()){
+    senderID = binding.stringIDField.text.toString()
+}else {
+    senderID = "Sender id dnot set, Default id:"
+}
 
-            val map = mapOf("id" to uniqueUUID,"content" to floatArray, )
+
+            val map = mapOf("id" to senderID,"content" to floatArray, )
             val sendObject = JSONObject(map)
             if (fallTag == 1.0.toFloat()){
                 Log.d("fallTag", fallTag.toString())

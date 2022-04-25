@@ -22,7 +22,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/appbarlayout"
-        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="?ViewLayoutColor"
         android:elevation="1dp"
         android:keepScreenOn="true"
@@ -65,6 +68,7 @@
                     android:textSize="50dp">
 
                 </TextView>
+
                 <ScrollView
                     android:id="@+id/scrollviewText"
                     android:layout_width="match_parent"
@@ -125,29 +129,33 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
+<EditText
+    android:id="@+id/stringIDField"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+</EditText>
             <Button
                 android:id="@+id/Record"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/Record"
-                >
-            </Button><Button
-            android:id="@+id/Predict"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/Predict"
-            >
-        </Button>
+                android:text="@string/Record"></Button>
+
+            <Button
+                android:id="@+id/Predict"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/Predict"></Button>
+
             <Button
                 android:id="@+id/Bin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/Bin"
-                >
-            </Button>
+                android:text="@string/Bin"></Button>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

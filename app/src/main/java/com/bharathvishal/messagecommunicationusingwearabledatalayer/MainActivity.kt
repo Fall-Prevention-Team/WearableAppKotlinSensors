@@ -328,7 +328,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope(),
     @SuppressLint("SetTextI18n", "HardwareIds")
     override fun onMessageReceived(p0: MessageEvent) {
         try {
-            val size = 60
+            val size = 12
             val buffer = ByteBuffer.wrap(p0.data)
             var floatArray: FloatArray = FloatArray(size)
             var fallTag = buffer.getFloat()
